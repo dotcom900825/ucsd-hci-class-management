@@ -1,0 +1,29 @@
+<%= form_for student, :url => students_path, :html=>{:class=>''} do |f| %>
+  <div class='form-group'>
+    <%= f.text_field :name, :placeholder=>"Full name", :class=>'form-control'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :email, :placeholder=>"UCSD email", :class=>'form-control'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.text_field :pid, :placeholder=>"Student PID", :class=>'form-control'%>
+  </div>
+
+  <div class="form-group  ">
+    <%= f.password_field :password, :placeholder=>"Password", :class=>'form-control'%>
+  </div>
+
+  <div class="form-group ">
+    <%= f.password_field :password_confirmation, :placeholder=>"Confirm your password", :class=>'form-control'%>
+  </div>
+
+  <div class="form-group">
+    <%= f.submit "Create", :class=>"btn-primary btn" %>
+  </div>
+
+
+
+
+<% end %>

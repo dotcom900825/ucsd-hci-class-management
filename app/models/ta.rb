@@ -1,0 +1,3 @@
+class Ta < User
+
+end

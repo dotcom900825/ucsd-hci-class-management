@@ -1,0 +1,26 @@
+<div class='container'>
+  <h2>Assignments</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Assignment name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @assignments.each do |assignment| %>
+        <tr>
+          <td><%= link_to assignment.name, assignment%></td>
+          <td>
+            <% submission = @submissions.find_by(:assignment=>assignment)%>
+            <% if submission%>
+              <label><span class="label label-primary">Last Submitted at <%= submission.updated_at%></span></label>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

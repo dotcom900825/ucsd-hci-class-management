@@ -1,0 +1,36 @@
+<div class="container">
+  <% flash.each do |key, value| %>
+    <div class="alert alert-<%= key %>"><%= value %></div>
+  <% end %>
+
+
+  <h2><%= @assignment.name%> <span style="font-size: 20px;">(Please submit formated pdf file)</span></h2>
+  <hr>
+  <p><%= @assignment.description.html_safe %></p>
+  <% if @submission.new_record? %>
+    <%= form_for @submission do |f| %>
+      <div class="form-group">
+        <div class="fileinput fileinput-new" data-provides="fileinput">
+          <span class="btn btn-primary btn-embossed btn-file">
+            <span class="fileinput-new"><span class="fui-upload"></span>&nbsp;&nbsp;Attach File</span>
+            <span class="fileinput-exists"><span class="fui-gear"></span>&nbsp;&nbsp;Change</span>
+            <%= f.file_field :attachment%>
+          </span>
+          <span class="fileinput-filename"></span>
+          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
+        </div>
+      </div>
+
+      <%= f.hidden_field :assignment_id, :value=>@submission.assignment_id%>
+      <%= f.hidden_field :student_id, :value=>@submission.student_id%>
+
+      <div class="form-group">
+        <%= f.submit "Submit", :class=>"btn btn-primary"%>
+      </div>
+    <% end %>
+  <% else %>
+    <%= link_to "Download submission", @submission.attachment.url, :class=>"btn btn-info"%>
+    <br>
+    <span class="label label-important">Last Submitted at <%= @submission.updated_at%></span>
+  <% end %>
+</div>
