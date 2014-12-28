@@ -3,9 +3,11 @@ Rails.application.routes.draw do
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   resources :assignments
 
-  resources :submissions
+  resources :submissions do 
+    get "assignments", on: :collection
+  end
 
-  resources :students, :only=>[:new, :create]
+  resources :students, :only=>[:new, :create, :edit, :update]
   resources :user_sessions
   get 'login' => 'user_sessions#new', :as => :login
   post 'logout' => 'user_sessions#destroy', :as => :logout

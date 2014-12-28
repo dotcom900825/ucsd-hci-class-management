@@ -1,0 +1,30 @@
+<div class='container'>
+  <h4><%= @assignment.name %> Submissions, From <%= "#{@studio.location} | #{@studio.time}" %></h4>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Students</th>
+        <% @assignment.rubric_fields.each do |field|%>
+          <th><%= field.name%></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @submissions.each do |submission| %>
+        <tr>
+          <td>
+            <%= link_to "#{submission.student.name} | #{submission.attachment_file_name}", edit_submission_path(submission, :assignment_id=>@assignment.id), :target=>"_blank"%>
+          </td>
+          <% submission.grading_fields.each do |field|%>
+            <td>
+              <%= field.score%><br>
+              <%= field.comment%>
+            </td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

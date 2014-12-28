@@ -1,0 +1,38 @@
+<div class='container'>
+  <h2>Assignments</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Submitted Assignments from Studios</th>
+        <th>Submission counts</th>
+        <th>Submission Deadline</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @assignments.each do |assignment| %>
+        <tr>
+          <td>
+            <% @studios.each do |studio|%>
+              <%= link_to "#{assignment.name} | #{studio.name}", submissions_path(:assignment_id=>assignment.id, :studio_id=>studio.id)%>
+              <br>
+            <% end %>
+          </td>
+          <td>
+           <% @studios.each do |studio|%>
+              <%= studio.count_submission(assignment)%> out of <%= studio.students.count%> has submitted
+              <br>
+            <% end %>
+          </td>
+          <td>
+            <%= assignment.due_time%>
+          </td>
+          <td>
+            
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

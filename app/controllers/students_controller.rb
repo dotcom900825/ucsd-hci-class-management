@@ -14,9 +14,20 @@ class StudentsController < ApplicationController
     end
   end
 
+  def edit
+    @student = Student.find(params[:id])
+  end
+
+  def update
+    @student = Student.find(params[:id])
+    @student.update_attribute(:studio_id, params[:student][:studio_id])
+    flash[:success] = "Studio update success"
+    redirect_to assignments_path
+  end
+
   private
 
   def student_params
-    params.require(:student).permit(:email, :password, :password_confirmation, :pid, :name)
+    params.require(:student).permit(:email, :password, :password_confirmation, :pid, :name, :studio_id)
   end
 end

@@ -5,7 +5,9 @@
     <thead>
       <tr>
         <th>Assignment name</th>
-        <th>Status</th>
+        <th>Submission Status</th>
+        <th>Submission Deadline</th>
+        <th>Grade & Comment</th>
       </tr>
     </thead>
 
@@ -18,6 +20,9 @@
             <% if submission%>
               <label><span class="label label-primary">Last Submitted at <%= submission.updated_at%></span></label>
             <% end %>
+          </td>
+          <td>
+            <%= assignment.due_time%>
           </td>
         </tr>
       <% end %>
