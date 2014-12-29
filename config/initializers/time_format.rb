@@ -1,0 +1,11 @@
+Time::DATE_FORMATS[:od] = "%m/%d/%Y"
+Time::DATE_FORMATS[:odb] = "%Y-%m-%d"
+Time::DATE_FORMATS[:it] = "%m/%d/%Y"
+Time::DATE_FORMATS[:ss] = "%Y-%m-%d %k:%M "
+Time::DATE_FORMATS[:ll] = "%Y-%m-%d %k:%M:%S "
+Time::DATE_FORMATS[:ot] = "%H:%M "
+Time::DATE_FORMATS[:lt] = "%H:%M:%S "
+Time::DATE_FORMATS[:month_and_year] = "%B %Y"
+Time::DATE_FORMATS[:may] = "%b %Y"
+Time::DATE_FORMATS[:short_ordinal] = lambda { |time| time.strftime("%B #{time.day.ordinalize}") }
+Time::DATE_FORMATS[:des] = "%^B %d, %Y"
