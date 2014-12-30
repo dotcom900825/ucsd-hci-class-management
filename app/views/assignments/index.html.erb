@@ -18,7 +18,7 @@
           <td>
             <% submission = @submissions.find_by(:assignment=>assignment)%>
             <% if submission%>
-              <span class="label label-primary">Last Submitted at <%= submission.updated_at.to_s(:ll)%></span>
+              <span class="label label-primary">Last Submitted at <%= submission.updated_at.to_s(:ss)%></span>
             <% end %>
           </td>
           <td>
@@ -26,7 +26,7 @@
           </td>
           <td>
             <% if submission && submission.grading_fields.size > 0%>
-              <span class='label label-danger'>Grade & Comment last updated at <%= submission.grading_fields.first.updated_at.to_s(:ll)%></span> 
+              <span class='label label-danger'>Grade & Comment last updated at <%= submission.grading_fields.first.updated_at.to_s(:ss)%></span> 
             <% end %>
           </td>
         </tr>
