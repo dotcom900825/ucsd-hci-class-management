@@ -9,6 +9,8 @@ class Ability
     if user && user.is_ta?
       can :access, :rails_admin
       can :dashboard
+
+      can :manage :all
     end
 
     #
