@@ -1,3 +1,7 @@
+<% flash.each do |key, value| %>
+  <div class="alert alert-<%= key %>"><%= value %></div>
+<% end %>
+
 <%= form_for student, :url => students_path, :html=>{:class=>''} do |f| %>
   <div class='form-group'>
     <%= f.text_field :name, :placeholder=>"Full name", :class=>'form-control'%>
