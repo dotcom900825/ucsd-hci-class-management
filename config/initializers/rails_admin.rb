@@ -36,6 +36,7 @@ RailsAdmin.config do |config|
     edit do
       # For RailsAdmin >= 0.5.0
       field :description, :wysihtml5
+      field :due_time
       # For RailsAdmin < 0.5.0
       # field :description do
       #   bootstrap_wysihtml5 true
