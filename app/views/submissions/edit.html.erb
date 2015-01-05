@@ -1,11 +1,13 @@
 <div class="container-fluid">
   <div class='row'>
-    <%= link_to "Back", submissions_path(:studio_id=>@studio.id, :assignment_id=>@assignment.id)%>
+    <%= link_to "Back", submissions_path(:studio_id=>@studio.id, :assignment_id=>@assignment.id), :style=>"margin-left: 40px"%>
   </div>
-  <table class='table'>
+
+  <h4><%= link_to "#{@submission.student.name} | submission", @submission.attachment.url, :target=>"_blank"%></h4>
+
+  <table class='table' style="width: 1500px;">
     <thead>
       <tr>
-        <th>Submission</th>
         <% @assignment.rubric_fields.each do |field|%>
           <th><%= field.name%></th>
         <% end %>
@@ -20,9 +22,6 @@
     <%= form_for @submission, :method=>:patch do |f|%>
       <tbody>
         <tr>
-          <td>
-            <%= link_to "#{@submission.student.name} | submission", @submission.attachment.url, :target=>"_blank"%>
-          </td>
           <%= f.fields_for :grading_fields do |builder|%>
             <td>
               <div class='form-group'>
@@ -33,9 +32,6 @@
               </div>
             </td>
           <% end %>
-        </tr>
-
-        <tr>
           <td>
             <div class='form-group'>
               <%= f.number_field :self_assessment_grade, :class=>"form-control input-sm self_grade"%>
@@ -58,7 +54,7 @@
             </div>
           </td>
         </tr>
-        
+
         <tr>
           <td>
             <div class='form-group'>
