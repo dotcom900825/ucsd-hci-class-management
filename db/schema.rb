@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141226015426) do
+ActiveRecord::Schema.define(version: 20150102003905) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,6 +64,10 @@ ActiveRecord::Schema.define(version: 20141226015426) do
     t.datetime "attachment_updated_at"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "self_assessment_grade",   default: 0
+    t.integer  "ta_grade",                default: 0
+    t.integer  "sa_points",               default: 0
+    t.integer  "final_grade",             default: 0
   end
 
   create_table "teams", force: true do |t|

@@ -32,7 +32,7 @@ class SubmissionsController < ApplicationController
 
   private
   def submission_params
-    params.require(:submission).permit(:attachment, :assignment_id, :student_id, :grading_fields_attributes=>[:score, :comment])
+    params.require(:submission).permit(:self_assessment_grade, :ta_grade, :sa_points, :final_grade, :attachment, :assignment_id, :student_id, :grading_fields_attributes=>[:id, :score, :comment])
   end
 
 end

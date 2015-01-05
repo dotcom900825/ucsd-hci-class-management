@@ -1,4 +1,4 @@
-<div class="container">
+<div class="container-fluid">
   <div class='row'>
     <%= link_to "Back", submissions_path(:studio_id=>@studio.id, :assignment_id=>@assignment.id)%>
   </div>
@@ -9,6 +9,10 @@
         <% @assignment.rubric_fields.each do |field|%>
           <th><%= field.name%></th>
         <% end %>
+        <th>Self Assessment Grade</th>
+        <th style="width: 110px;">TA Grade</th>
+        <th style="width: 110px;">Final Grade</th>
+        <th>Self Assessment points</th>
       </tr>
     </thead>
 
@@ -17,18 +21,40 @@
       <tbody>
         <tr>
           <td>
-            <%= link_to "#{@submission.student.name} | #{@submission.attachment_file_name}", @submission.attachment.url, :target=>"_blank"%>
+            <%= link_to "#{@submission.student.name} | submission", @submission.attachment.url, :target=>"_blank"%>
           </td>
           <%= f.fields_for :grading_fields do |builder|%>
             <td>
               <div class='form-group'>
-                <%= builder.number_field :score, :min=>0, :max=>4, :class=>"form-control input-sm", :placeholder=>"score"%>
+                <%= builder.number_field :score, :min=>0, :max=>4, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
               </div>
               <div class='form-group'>
                 <%= builder.text_area :comment, :class=>"form-control input-sm", :placeholder=>"comment"%>
               </div>
             </td>
           <% end %>
+          <td>
+            <div class='form-group'>
+              <%= f.number_field :self_assessment_grade, :class=>"form-control input-sm self_grade"%>
+            </div>
+          </td>
+          <td>
+            <div class='form-group'>
+              <%= f.number_field :ta_grade, :class=>"form-control input-sm total_grade"%>
+            </div>
+          </td>
+          <td>
+            <div class='form-group'>
+              <%= f.number_field :final_grade, :class=>"form-control input-sm final_grade"%>
+            </div>
+          </td>
+
+          <td>
+            <div class='form-group'>
+              <%= f.number_field :sa_points, :class=>"form-control input-sm sa_points"%>
+            </div>
+          </td>
+
         </tr>
         <tr>
           <td>
