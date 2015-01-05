@@ -20,7 +20,7 @@
       <% @submissions.each do |submission| %>
         <tr>
           <td>
-            <%= link_to "#{submission.student.name}", edit_submission_path(submission, :assignment_id=>@assignment.id, :studio_id=>@studio.id), :target=>"_blank"%>
+            <%= link_to "#{submission.student.name} | #{submission.student.try(:team).try(:name)}", edit_submission_path(submission, :assignment_id=>@assignment.id, :studio_id=>@studio.id), :target=>"_blank"%>
           </td>
           <% submission.grading_fields.each do |field|%>
             <td>

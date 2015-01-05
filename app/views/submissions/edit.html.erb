@@ -2,8 +2,8 @@
   <div class='row'>
     <%= link_to "Back", submissions_path(:studio_id=>@studio.id, :assignment_id=>@assignment.id), :style=>"margin-left: 40px"%>
   </div>
-
-  <h4><%= link_to "#{@submission.student.name} | submission", @submission.attachment.url, :target=>"_blank"%></h4>
+  <hr>
+  <h6 style="margin-left: 25px"><%= link_to "#{@submission.student.name} | submission", @submission.attachment.url, :target=>"_blank"%></h6>
 
   <table class='table' style="width: 1500px;">
     <thead>

@@ -2,7 +2,7 @@ class SubmissionsController < ApplicationController
   def index
     @assignment = Assignment.find(params[:assignment_id])
     @studio = Studio.find(params[:studio_id])
-    @submissions = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{studio_id: @studio.id})
+    @submissions = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{studio_id: @studio.id}).order("users.team_id ASC, submissions.created_at ASC")
     @not_submitted_students = Student.find (@studio.students.all.pluck(:id) - @studio.students.joins("left outer join submissions on submissions.student_id = users.id").where(:submissions=>{:assignment=>@assignment}).pluck(:id))
   end
 
