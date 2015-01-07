@@ -32,6 +32,9 @@ task :load_students => :environment do
 
   students_list.shuffle!
 
-  
+  students_list.each do |student|
+    studio = Studio.where(:section_num=>student.section_id).first
+    studio.students.create(:email=>student.email, :name=>student.name, :pid=>student.pid, :password=>student.pid, :password_confirmation=>student.pid, :college=>student.college, :major=>student.major, :level=>student.level)!
+  end
 end
 #Student.create(:email=>email, :name=>s_name, :pid=>pid, :password=>pid, :password_confirmation=>pid)
