@@ -1,4 +1,7 @@
 class Studio < ActiveRecord::Base
+
+  scope :have_slot, -> {where("students_count < 18")}
+
   belongs_to :ta
   has_many :students
   
