@@ -40,7 +40,7 @@ $(document).ready(function(){
       if(self_grade == 0){
         $('.sa_points').val(0);
         $('.final_grade').val(total);
-      }else if(Math.abs(total - self_grade) < 3){
+      }else if(Math.abs(total - self_grade) < 2){
         $('.sa_points').val(2);
         $('.final_grade').val(self_grade);
       }else{
