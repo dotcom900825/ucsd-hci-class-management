@@ -1,7 +1,7 @@
 <%= form_for student, :url => student_path(student), :method=>:patch, :html=>{:class=>''} do |f| %>
 
   <div class='form-group'>
-    <%= f.select :studio_id, options_from_collection_for_select(Studio.have_slot.all, "id", "name"), {selected: @student.studio}, :class=>"form-control select select-primary"%>
+    <%= f.select :studio_id, options_from_collection_for_select(Studio.have_slot.all, "id", "studio_name"), {selected: @student.studio}, :class=>"form-control select select-primary"%>
   </div>
 
   <div class="form-group">
