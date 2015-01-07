@@ -2,7 +2,7 @@ class Studio < ActiveRecord::Base
   belongs_to :ta
   has_many :students
   
-  def name
+  def studio_name
     "#{theme} | #{ta.name} | #{location} | #{time}"
   end
 

@@ -15,7 +15,7 @@
         <tr>
           <td>
             <% @studios.each do |studio|%>
-              <%= link_to "#{assignment.name} | #{studio.name}", submissions_path(:assignment_id=>assignment.id, :studio_id=>studio.id)%>
+              <%= link_to "#{assignment.name} | #{studio.studio_name}", submissions_path(:assignment_id=>assignment.id, :studio_id=>studio.id)%>
               <br>
             <% end %>
           </td>
