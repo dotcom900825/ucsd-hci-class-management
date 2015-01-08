@@ -1,0 +1,11 @@
+<div class="container">
+  <% @studios.each do |studio|%>
+    <span><%= studio.studio_name%></span>
+    <div class="progress">
+      <div class="progress-bar" role="progressbar" aria-valuenow="<%= studio.students_count%>" aria-valuemin="0" aria-valuemax="35" style="width: <%= studio.students_count%>%;">
+        <%= studio.students_count%>
+      </div>
+    </div>
+    <hr>
+  <% end %>
+</div>

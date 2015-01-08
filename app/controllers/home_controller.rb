@@ -3,4 +3,8 @@ class HomeController < ApplicationController
     
   end
 
+  def studio_stat
+    @studios = Studio.all.order("section_num ASC")
+  end
+
 end
