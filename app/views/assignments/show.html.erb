@@ -71,8 +71,8 @@
       </div>
     <% end %>
   <% else %>
-    <%= link_to "Download last submission", @submission.attachment.url, :class=>"btn btn-info"%>
-    <span class="label label-important">Last Submitted at <%#= @submission.updated_at.to_s(:ll)%></span>
+    <%= link_to "Download last submission", @submission.attachment.url, :class=>"btn btn-info" if @submission.attachment.present?%>
+    <span class="label label-important">Last Submitted at <%= @submission.updated_at.to_s(:ll) if @submission.present? %></span>
     <hr>
     <% if @assignment.due_time > Time.now %>
       <%= form_for @submission, :method=>:patch do |f| %>
