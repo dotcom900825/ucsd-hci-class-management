@@ -16,9 +16,13 @@ class AssignmentsController < ApplicationController
   # GET /assignments/1
   # GET /assignments/1.json
   def show
-    @submission = current_user.submissions.find_by(:assignment=>@assignment)
-    @submission = current_user.submissions.new(:assignment=>@assignment) unless @submission.present?
-
+    if current_user.present?
+      @submission = current_user.submissions.find_by(:assignment=>@assignment)
+      @submission = current_user.submissions.new(:assignment=>@assignment) unless @submission.present?
+    else
+      flash[:alert] = "Login in required"
+      redirect_to root_path
+    end
   end
 
   # GET /assignments/new
