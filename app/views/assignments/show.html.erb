@@ -89,6 +89,10 @@
           </div>
         </div>
 
+        <%= f.hidden_field :assignment_id, :value=>@submission.assignment_id%>
+        <%= f.hidden_field :student_id, :value=>@submission.student_id%>
+
+
         <div class="form-group">
           <%= f.submit "Submit", :class=>"btn btn-primary"%>
         </div>
