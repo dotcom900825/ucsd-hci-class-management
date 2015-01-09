@@ -4,8 +4,13 @@ class AssignmentsController < ApplicationController
   # GET /assignments
   # GET /assignments.json
   def index
-    @assignments = Assignment.all.order("created_at ASC")
-    @submissions = current_user.submissions.all.includes(:assignment)
+    if current_user.present?
+      @assignments = Assignment.all.order("created_at ASC")
+      @submissions = current_user.submissions.all.includes(:assignment)
+    else
+      flash[:alert] = "Login in required"
+      redirect_to root_path
+    end
   end
 
   # GET /assignments/1
