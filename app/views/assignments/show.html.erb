@@ -11,42 +11,72 @@
   <% if @submission.grading_fields.size > 0%>
     <hr>
     <h4>Grades & Comment <a style='font-size: 14px' href="http://d.ucsd.edu/class/intro-hci/2015/logistics.html#grading">Grading Policy</a> </h4>
-    <table class='table'>
-      <thead>
-        <tr>
-          <% @assignment.rubric_fields.each do |field|%>
-            <th><%= field.name%></th>
-          <% end %>
-          <th>Self Assessment Grade</th>
-          <th style="width: 110px;">TA Grade</th>
-          <th style="width: 110px;">Final Grade</th>
-          <th>Self Assessment points</th>
+    <% if @assignment.id > 1%>
+      <table class='table'>
+        <thead>
+          <tr>
+            <% @assignment.rubric_fields.each do |field|%>
+              <th><%= field.name%></th>
+            <% end %>
+            <th>Self Assessment Grade</th>
+            <th style="width: 110px;">TA Grade</th>
+            <th style="width: 110px;">Final Grade</th>
+            <th>Self Assessment points</th>
 
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% @submission.grading_fields.each do |field| %>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <% @submission.grading_fields.each do |field| %>
+              <td>
+                <%= field.score%>
+                <p><%= field.comment%></p>
+              </td>
+            <% end %>
             <td>
-              <%= field.score%>
-              <p><%= field.comment%></p>
+              <%= @submission.self_assessment_grade%>
             </td>
-          <% end %>
-          <td>
-            <%= @submission.self_assessment_grade%>
-          </td>
-          <td>
-            <%= @submission.ta_grade%>
-          </td>
-          <td>
-            <%= @submission.final_grade%>
-          </td>
-          <td>
-            <%= @submission.sa_points%>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+            <td>
+              <%= @submission.ta_grade%>
+            </td>
+            <td>
+              <%= @submission.final_grade%>
+            </td>
+            <td>
+              <%= @submission.sa_points%>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    <% else %>
+     <table class='table'>
+          <thead>
+            <tr>
+              <% @assignment.rubric_fields.each do |field|%>
+                <th><%= field.name%></th>
+              <% end %>
+              <th style="width: 110px;">TA Grade</th>
+              <th style="width: 110px;">Final Grade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <% @submission.grading_fields.each do |field| %>
+                <td>
+                  <%= field.score%>
+                  <p><%= field.comment%></p>
+                </td>
+              <% end %>
+              <td>
+                <%= @submission.ta_grade%>
+              </td>
+              <td>
+                <%= @submission.final_grade%>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+    <% end %>
   <% end %>
   
   <% if @submission.new_record? && @assignment.due_time > Time.now %>
