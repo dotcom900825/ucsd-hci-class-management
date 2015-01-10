@@ -1,4 +1,10 @@
 <div class='container'>
+  <ul>
+    <% @students_missing_submission.each do |student|%>
+      <li><%= student.email%> | <%= student.pid%> | <%= student.name%></li>
+    <% end %>
+  </ul>
+
   <table class='table'>
     <thead>
       <tr>
