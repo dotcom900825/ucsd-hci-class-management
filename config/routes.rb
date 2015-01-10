@@ -1,7 +1,10 @@
 Rails.application.routes.draw do
 
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
-  resources :assignments
+  resources :assignments do
+    get "download_score", on: :member
+    get "grading_overview", on: :member
+  end
 
   resources :submissions do 
     get "assignments", on: :collection
