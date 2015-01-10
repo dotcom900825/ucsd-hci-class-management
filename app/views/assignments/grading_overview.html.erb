@@ -1,7 +1,15 @@
 <div class='container'>
+  <h2>Students that missing the submission</h2>
   <ul>
     <% @students_missing_submission.each do |student|%>
       <li><%= student.email%> | <%= student.pid%> | <%= student.name%></li>
+    <% end %>
+  </ul>
+
+  <h2>Students that missing final grade</h2>
+  <ul>
+    <% @student_with_submission_but_no_final_grade.each do |student|%>
+      <li><%= student.email%> | <%= student.pid%> | <%= student.name %></li>
     <% end %>
   </ul>
 

@@ -38,7 +38,8 @@ class AssignmentsController < ApplicationController
   end
 
   def grading_overview
-    @submissions = @assignment.submissions
+    @submissions = @assignment.submissions.where("final_grade > 0")
+    @student_with_submission_but_no_final_grade = @assignment.submissions.where("final_grade = 0")
     @students_missing_submission = Student.find (Student.all.pluck(:id) - Student.joins("left outer join submissions on submissions.student_id = users.id").where(:submissions=>{:assignment=>@assignment}).pluck(:id))
   end
 
