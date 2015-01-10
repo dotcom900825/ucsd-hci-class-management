@@ -39,7 +39,7 @@ class AssignmentsController < ApplicationController
 
   def grading_overview
     @submissions = @assignment.submissions
-    @students_missing_submission = Student.find (Students.all.pluck(:id) - Students.joins("left outer join submissions on submissions.student_id = users.id").where(:submissions=>{:assignment=>@assignment}).pluck(:id))
+    @students_missing_submission = Student.find (Student.all.pluck(:id) - Student.joins("left outer join submissions on submissions.student_id = users.id").where(:submissions=>{:assignment=>@assignment}).pluck(:id))
   end
 
   private
