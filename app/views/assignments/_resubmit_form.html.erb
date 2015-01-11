@@ -1,4 +1,5 @@
-<%= form_for @submission do |f| %>
+<%= form_for @submission, :method=>:patch do |f| %>
+  <h4>Resubmit</h4>
   <div class="form-group">
     <div class="fileinput fileinput-new" data-provides="fileinput">
       <span class="btn btn-primary btn-embossed btn-file">
@@ -13,6 +14,7 @@
 
   <%= f.hidden_field :assignment_id, :value=>@submission.assignment_id%>
   <%= f.hidden_field :student_id, :value=>@submission.student_id%>
+
 
   <div class="form-group">
     <%= f.submit "Submit", :class=>"btn btn-primary"%>

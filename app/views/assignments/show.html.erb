@@ -11,122 +11,18 @@
   <% if @submission.grading_fields.size > 0%>
     <hr>
     <h4>Grades & Comment <a style='font-size: 14px' href="http://d.ucsd.edu/class/intro-hci/2015/logistics.html#grading">Grading Policy</a> </h4>
-    <% if @assignment.id > 1%>
-      <table class='table'>
-        <thead>
-          <tr>
-            <% @assignment.rubric_fields.each do |field|%>
-              <th><%= field.name%></th>
-            <% end %>
-            <th>Self Assessment Grade</th>
-            <th style="width: 110px;">TA Grade</th>
-            <th style="width: 110px;">Final Grade</th>
-            <th>Self Assessment points</th>
-
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <% @submission.grading_fields.each do |field| %>
-              <td>
-                <%= field.score%>
-                <p><%= field.comment%></p>
-              </td>
-            <% end %>
-            <td>
-              <%= @submission.self_assessment_grade%>
-            </td>
-            <td>
-              <%= @submission.ta_grade%>
-            </td>
-            <td>
-              <%= @submission.final_grade%>
-            </td>
-            <td>
-              <%= @submission.sa_points%>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    <% else %>
-     <table class='table'>
-          <thead>
-            <tr>
-              <% @assignment.rubric_fields.each do |field|%>
-                <th><%= field.name%></th>
-              <% end %>
-              <th style="width: 110px;">TA Grade</th>
-              <th style="width: 110px;">Final Grade</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <% @submission.grading_fields.each do |field| %>
-                <td>
-                  <%= field.score%>
-                  <p><%= field.comment%></p>
-                </td>
-              <% end %>
-              <td>
-                <%= @submission.ta_grade%>
-              </td>
-              <td>
-                <%= @submission.final_grade%>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-    <% end %>
+    <%= render "grades"%>
   <% end %>
   
-  <% if @submission.new_record? && @assignment.due_time > Time.now %>
-    <%= form_for @submission do |f| %>
-      <div class="form-group">
-        <div class="fileinput fileinput-new" data-provides="fileinput">
-          <span class="btn btn-primary btn-embossed btn-file">
-            <span class="fileinput-new"><span class="fui-upload"></span>&nbsp;&nbsp;Attach File</span>
-            <span class="fileinput-exists"><span class="fui-gear"></span>&nbsp;&nbsp;Change</span>
-            <%= f.file_field :attachment%>
-          </span>
-          <span class="fileinput-filename"></span>
-          <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
-        </div>
-      </div>
-
-      <%= f.hidden_field :assignment_id, :value=>@submission.assignment_id%>
-      <%= f.hidden_field :student_id, :value=>@submission.student_id%>
-
-      <div class="form-group">
-        <%= f.submit "Submit", :class=>"btn btn-primary"%>
-      </div>
-    <% end %>
-  <% else %>
+  <% if @submission.new_record? && @assignment.due_time.end_of_day > Time.zone.now %>
+    <%= render "form"%>
+  <% elsif @submission.persisted? %>
     <%= link_to "Download last submission", @submission.attachment.url, :class=>"btn btn-info" if @submission.attachment.present?%>
     <span class="label label-important">Last Submitted at <%= @submission.updated_at.to_s(:ll) if @submission.present? %></span>
     <hr>
-    <% if @assignment.due_time > Time.now %>
-      <%= form_for @submission, :method=>:patch do |f| %>
-        <h4>Resubmit</h4>
-        <div class="form-group">
-          <div class="fileinput fileinput-new" data-provides="fileinput">
-            <span class="btn btn-primary btn-embossed btn-file">
-              <span class="fileinput-new"><span class="fui-upload"></span>&nbsp;&nbsp;Attach File</span>
-              <span class="fileinput-exists"><span class="fui-gear"></span>&nbsp;&nbsp;Change</span>
-              <%= f.file_field :attachment%>
-            </span>
-            <span class="fileinput-filename"></span>
-            <a href="#" class="close fileinput-exists" data-dismiss="fileinput" style="float: none">×</a>
-          </div>
-        </div>
 
-        <%= f.hidden_field :assignment_id, :value=>@submission.assignment_id%>
-        <%= f.hidden_field :student_id, :value=>@submission.student_id%>
-
-
-        <div class="form-group">
-          <%= f.submit "Submit", :class=>"btn btn-primary"%>
-        </div>
-      <% end %>
+    <% if @assignment.due_time.end_of_day > Time.zone.now %>
+      <%= render "resubmit_form"%>
     <% end %>
 
   <% end %>
