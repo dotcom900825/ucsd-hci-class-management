@@ -9,7 +9,7 @@
   <h2>Students that missing final grade</h2>
   <ul>
     <% @student_with_submission_but_no_final_grade.each do |sub|%>
-      <li><%= sub.student.studio.name%>, <%= sub.student.studio.time%> | <%= sub.student.email%> | <%= sub.student.pid%> | <%= sub.student.name %></li>
+      <li><%= sub.student.studio.ta.name%>, <%= sub.student.studio.time%> | <%= sub.student.email%> | <%= sub.student.pid%> | <%= sub.student.name %></li>
     <% end %>
   </ul>
 
