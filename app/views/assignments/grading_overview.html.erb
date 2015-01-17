@@ -9,7 +9,7 @@
   <h2>Students that missing final grade</h2>
   <ul>
     <% @student_with_submission_but_no_final_grade.each do |sub|%>
-      <li><%= sub.student.studio.ta.name%>, <%= sub.student.studio.time%> | <%= sub.student.email%> | <%= sub.student.pid%> | <%= sub.student.name %> | <%= link_to sub.attachment.url%></li>
+      <li><%= sub.student.studio.ta.name%>, <%= sub.student.studio.time%> | <%= sub.student.email%> | <%= sub.student.pid%> | <%= sub.student.name %> | <%= link_to "link", sub.attachment.url%></li>
     <% end %>
   </ul>
 
@@ -33,7 +33,7 @@
       <% @submissions.each do |submission| %>
         <tr>
           <td>
-            <%= submission.student.name%> | <%= link_to submission.attachment.url%>
+            <%= submission.student.name%> | <%= link_to "link", submission.attachment.url%>
           </td>
           <% submission.grading_fields.each do |field| %>
             <td>
