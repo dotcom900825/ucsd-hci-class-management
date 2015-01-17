@@ -13,8 +13,4 @@ class Studio < ActiveRecord::Base
     count = Submission.where(:assignment=>assignment).joins(:student).where(:users=>{studio_id: self.id}).count
     return count
   end
-
-  def name
-    studio_name
-  end
 end
