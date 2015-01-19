@@ -22,11 +22,19 @@
           <td>
             <%= link_to "#{submission.student.name} | #{submission.student.try(:team).try(:name)}", edit_submission_path(submission, :assignment_id=>@assignment.id, :studio_id=>@studio.id), :target=>"_blank"%>
           </td>
-          <% submission.grading_fields.each do |field|%>
-            <td>
-              <%= field.score%><br>
-              <%= field.comment%>
-            </td>
+          <% if submission.grading_fields.size > 0%>
+            <% submission.grading_fields.each do |field|%>
+              <td>
+                <%= field.score%><br>
+                <%= field.comment%>
+              </td>
+            <% end %>
+          <% else %>
+            <% @assignment.rubric_fields.each do |field|%>
+              <td>
+                0
+              </td>
+            <% end %>
           <% end %>
           <td>
             <%= submission.self_assessment_grade%>
