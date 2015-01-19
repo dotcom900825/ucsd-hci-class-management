@@ -1,5 +1,5 @@
 require "csv"
-task :load_assignments => :environment do
+task :load_self_assessment => :environment do
   students_list = []
   CSV.foreach(File.expand_path('../w2_sa.csv', __FILE__)) do |row|
     sa_grade = row[1].to_i
