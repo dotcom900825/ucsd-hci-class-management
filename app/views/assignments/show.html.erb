@@ -14,14 +14,14 @@
     <%= render "grades"%>
   <% end %>
   
-  <% if @submission.new_record? && @assignment.due_time.end_of_day > Time.zone.now %>
+  <% if @submission.new_record? && @assignment.due_time.end_of_day + 4.hour > Time.zone.now %>
     <%= render "form"%>
   <% elsif @submission.persisted? %>
     <%= link_to "Download last submission", @submission.attachment.url, :class=>"btn btn-info" if @submission.attachment.present?%>
     <span class="label label-important">Last Submitted at <%= @submission.updated_at.to_s(:ll) if @submission.present? %></span>
     <hr>
 
-    <% if @assignment.due_time.end_of_day > Time.zone.now %>
+    <% if @assignment.due_time.end_of_day + 4.hour > Time.zone.now %>
       <%= render "resubmit_form"%>
     <% end %>
 
