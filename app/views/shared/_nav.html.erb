@@ -12,6 +12,9 @@
           <%= link_to "Assignments", assignments_path%>
         </li>
         <li>
+          <%= link_to "See other students submissions", see_submissions_assignments_path%>
+        </li>
+        <li>
           <a href="#"><%= current_user.studio.studio_name if current_user.studio.present?%></a>
         </li>
       <% end %>

@@ -1,0 +1,24 @@
+<div class='container'>
+  <h2>Student submissions</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Student</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @submissions.each do |submission| %>
+        <tr>
+          <td>
+            <%= submission.student.name%>
+          </td>
+          <td>
+            <%= link_to "Link", submission.attachment.url%>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

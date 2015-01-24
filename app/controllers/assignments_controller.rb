@@ -1,8 +1,8 @@
 require 'csv'
 
 class AssignmentsController < ApplicationController
-  before_action :set_assignment, only: [:show, :download_score, :grading_overview]
-
+  before_action :set_assignment, only: [:show, :download_score, :grading_overview, :submissions_within]
+  before_action :check_permission, only: [:grading_overview, :download_score]
   # GET /assignments
   # GET /assignments.json
   def index
@@ -43,9 +43,31 @@ class AssignmentsController < ApplicationController
     @students_missing_submission = Student.find (Student.all.pluck(:id) - Student.joins("left outer join submissions on submissions.student_id = users.id").where(:submissions=>{:assignment=>@assignment}).pluck(:id))
   end
 
+  def see_submissions
+    if current_user.present?
+      @assignments = Assignment.all.order("created_at ASC")
+      @submissions = current_user.submissions.all.includes(:assignment)
+    else
+      flash[:alert] = "Login in required"
+      redirect_to root_path
+    end
+  end
+
+  def submissions_within
+    @studio = Studio.find(params[:studio_id])
+    @submissions = @assignment.submissions.joins(:student).where(:users=>{:studio_id=>@studio.id}).where("final_grade > 0")
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment
       @assignment = Assignment.find(params[:id])
+    end
+
+    def check_permission
+      if current_user && current_user.is_ta?
+        flash[:notice] = "Permission denied"
+        redirect_to root_url and return
+      end
     end
 end

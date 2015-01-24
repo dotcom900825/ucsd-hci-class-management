@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   resources :assignments do
     get "download_score", on: :member
     get "grading_overview", on: :member
+    get "see_submissions", on: :collection
+    get "submissions_within", on: :member
   end
 
   resources :submissions do 

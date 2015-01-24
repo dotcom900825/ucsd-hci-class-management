@@ -1,0 +1,26 @@
+<div class='container'>
+  <h2>Assignments</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Assignment name</th>
+        <th>Studio</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @assignments.each do |assignment| %>
+        <tr>
+          <td><%= assignment.name%></td>
+          <td>
+            <% Studio.all.each do |studio|%>
+              <%= link_to studio.studio_name, submissions_within_assignment_path(assignment, :studio_id=>studio.id)%>
+              <br>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
