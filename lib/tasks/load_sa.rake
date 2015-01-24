@@ -9,10 +9,12 @@ task :load_self_assessment => :environment do
       if sub
         sub.self_assessment_grade = sa_grade
         if sub.final_grade > 0
-          if (sub.ta_grade - sa_grade).abs < 2
+          total = sub.grading_fields.pluck(:score).sum
+          if (total - sa_grade).abs <= 2
             sub.final_grade = sa_grade
             sub.sa_points = 2
           else
+            sub.final_grade = total
             sub.sa_points = 1
           end
         end
