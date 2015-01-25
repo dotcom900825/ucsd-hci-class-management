@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     get "submissions_within", on: :member
   end
 
+  resources :student_labs
+
   resources :submissions do 
     get "assignments", on: :collection
   end

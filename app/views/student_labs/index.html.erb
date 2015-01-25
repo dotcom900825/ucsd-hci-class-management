@@ -1,0 +1,27 @@
+<div class='container'>
+  <h2>Lab</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Lab name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @student_labs.each do |sl| %>
+        <tr>
+          <td><%= sl.lab.name%></td>
+          <td>
+            <% if sl.complete %>
+              <span class="label label-primary">Complete</span>
+            <% else %>
+              <span class="label label-danger">Missing</span>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
