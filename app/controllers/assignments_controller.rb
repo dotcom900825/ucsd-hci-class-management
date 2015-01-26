@@ -66,6 +66,8 @@ class AssignmentsController < ApplicationController
       @hash[ta.name] = avg
     end
 
+    gon.keys = @hash.keys
+    gon.values = @hash.values
     respond_to do |format|
       format.html
       format.json
