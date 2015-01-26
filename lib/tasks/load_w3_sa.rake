@@ -10,22 +10,27 @@ task :load_w3_sa => :environment do
     assignment.submissions.each do |sub|
       flag = false
       team = sub.student.team
-      pids = team.students.pluck(:pid)
-      pids.each do |s_pid|
-        if hash[s_pid].present?
-          if (sub.ta_grade - hash[s_pid]).abs <= 2
-            sub.final_grade = hash[s_pid]
-            sub.sa_points = 2
+
+      if team.present?
+        pids = team.students.pluck(:pid)
+        pids.each do |s_pid|
+          if hash[s_pid].present?
+            if (sub.ta_grade - hash[s_pid]).abs <= 2
+              sub.final_grade = hash[s_pid]
+              sub.sa_points = 2
+            else
+              sub.sa_points = 1
+            end
+            sub.save
+            flag = true
           else
-            sub.sa_points = 1
+            flat = false 
           end
-          sub.save
-          flag = true
-        else
-          flat = false 
         end
+        puts sub.id if !flag
+      else
+        puts "student missing team #{sub.student.pid}"
       end
-      puts sub.id if !flag
     end
 
   end
