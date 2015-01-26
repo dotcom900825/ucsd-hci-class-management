@@ -16,6 +16,7 @@ task :load_w3_sa => :environment do
       pids = team.students.pluck(:pid)
       pids.each do |s_pid|
         if hash[s_pid].present?
+          sub.self_assessment_grade = hash[s_pid]
           if (sub.ta_grade - hash[s_pid]).abs <= 2
             sub.final_grade = hash[s_pid]
             sub.sa_points = 2
