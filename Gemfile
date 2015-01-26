@@ -54,6 +54,8 @@ gem "cancancan"
 
 gem "airbrake"
 
+gem "d3-rails"
+
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
   gem "factory_girl_rails", "~> 4.4.1"

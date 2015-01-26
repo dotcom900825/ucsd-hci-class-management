@@ -6,6 +6,7 @@ Rails.application.routes.draw do
     get "grading_overview", on: :member
     get "see_submissions", on: :collection
     get "submissions_within", on: :member
+    get "score_overview", on: :member
   end
 
   resources :student_labs

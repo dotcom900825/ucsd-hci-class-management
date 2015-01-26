@@ -1,7 +1,7 @@
 require 'csv'
 
 class AssignmentsController < ApplicationController
-  before_action :set_assignment, only: [:show, :download_score, :grading_overview, :submissions_within]
+  before_action :set_assignment, only: [:show, :download_score, :grading_overview, :submissions_within, :score_overview]
   before_action :check_permission, only: [:grading_overview, :download_score]
   # GET /assignments
   # GET /assignments.json
@@ -56,6 +56,20 @@ class AssignmentsController < ApplicationController
   def submissions_within
     @studio = Studio.find(params[:studio_id])
     @submissions = @assignment.submissions.joins(:student).where(:users=>{:studio_id=>@studio.id}).where("final_grade > 0")
+  end
+
+  def score_overview
+    @hash = {}
+    Ta.all.each do |ta|
+      studios = ta.studios.pluck(:id)
+      avg = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{:studio_id=>studios}).average(:final_grade)
+      @hash[ta.name] = avg
+    end
+
+    respond_to do |format|
+      format.html
+      format.json
+    end
   end
 
   private
