@@ -4,7 +4,7 @@ task :load_w3_sa => :environment do
   CSV.foreach(File.expand_path('../w3_sa.csv', __FILE__)) do |row|
     pid = row[0]
     sa_grade = row[1].to_i
-    hash[sid] = sa_grade
+    hash[pid] = sa_grade
 
     assignment = Assignment.find 3
     assignment.submissions.each do |sub|
