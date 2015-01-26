@@ -59,15 +59,21 @@ class AssignmentsController < ApplicationController
   end
 
   def score_overview
-    @hash = {}
+    @ta_hash = {}
+    @final_hash = {}
+
     Ta.all.each do |ta|
       studios = ta.studios.pluck(:id)
       avg = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{:studio_id=>studios}).average(:final_grade)
-      @hash[ta.name] = avg
+      final_avg = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{:studio_id=>studios}).average(:ta_grade)
+      @ta_hash[ta.name] = avg
+      @final_hash[ta.name] = final_avg
     end
 
-    gon.keys = @hash.keys
-    gon.values = @hash.values
+    gon.ta_keys = @ta_hash.keys
+    gon.final_values = @final_hash.values
+    gon.ta_values = @final_hash.values
+
     respond_to do |format|
       format.html
       format.json
