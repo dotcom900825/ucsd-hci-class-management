@@ -6,7 +6,11 @@ task :load_quiz1 => :environment do
     grade = row[1].to_i
     student = Student.find_by(:pid=>pid)
     if student 
-      student.student_quizzes.create(:quiz_id=>1, :score=>grade)
+      begin 
+        student.student_quizzes.create(:quiz_id=>1, :score=>grade)
+      rescue
+        puts student.pid
+      end
     end
   end
 end
