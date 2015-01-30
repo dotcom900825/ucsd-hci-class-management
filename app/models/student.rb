@@ -6,5 +6,9 @@ class Student < User
 
   has_many :labs, through: :student_labs
   has_many :student_labs
+
+  has_many :quizzes, through: :student_quizzes
+  has_many :student_quizzes
+
   
 end
