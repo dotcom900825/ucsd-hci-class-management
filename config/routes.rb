@@ -11,6 +11,8 @@ Rails.application.routes.draw do
 
   resources :student_labs
 
+  resources :student_quizzes
+
   resources :submissions do 
     get "assignments", on: :collection
   end

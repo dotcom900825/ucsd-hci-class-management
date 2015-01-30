@@ -1,0 +1,23 @@
+<div class='container'>
+  <h2>Quizzes</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @student_quizzes.each do |s_quiz| %>
+        <tr>
+          <td><%= s_quiz.quiz.name%></td>
+          <td>
+            <span class="label label-primary"><%= s_quiz.score%></span>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

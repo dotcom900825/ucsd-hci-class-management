@@ -15,10 +15,13 @@
           <%= link_to "See other students submissions", see_submissions_assignments_path%>
         </li>
         <li>
-          <%= link_to "Lab", student_labs_path%>
+          <%= link_to "Lab status", student_labs_path%>
         </li>
         <li>
-          <a href="#"><%= current_user.studio.studio_name if current_user.studio.present?%></a>
+          <%= link_to "Quizzes score", student_quizzes_path%>
+        </li>
+        <li>
+          <a href="#"><%=  current_user.studio.short_name if current_user.studio.present?%></a>
         </li>
       <% end %>
       <% if current_user && current_user.is_ta?%>

@@ -17,4 +17,8 @@ class Studio < ActiveRecord::Base
   def name
     "#{theme} | #{location} | #{time}"
   end
+
+  def short_name
+    "#{ta.name} | #{theme}"
+  end
 end
