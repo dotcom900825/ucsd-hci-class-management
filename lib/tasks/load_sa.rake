@@ -11,12 +11,18 @@ task :load_self_assessment => :environment do
         if sub.final_grade > 0
           total = sub.grading_fields.pluck(:score).map {|ele| ele.to_i}.inject{|sum,x| sum + x }
           if (total - sa_grade).abs <= 2
-            sub.final_grade = sa_grade
             sub.sa_points = 2
           else
-            sub.final_grade = total
+            #sub.final_grade = total
             sub.sa_points = 1
           end
+
+          if (total - sa_grade).abs <= 1
+            sub.final_grade = sa_grade 
+          else
+            sub.final_grade = total
+          end
+
         end
 
         sub.save
