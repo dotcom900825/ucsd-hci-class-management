@@ -15,7 +15,7 @@ task :load_quiz1 => :environment do
   end
 end
 
-task :load_quiz1 => :environment do
+task :load_quiz2 => :environment do
   hash = {}
   CSV.foreach(File.expand_path('../quiz2.csv', __FILE__)) do |row|
     pid = row[0]
