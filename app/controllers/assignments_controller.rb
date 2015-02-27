@@ -88,7 +88,7 @@ class AssignmentsController < ApplicationController
       ta.studios.each do |studio|
         submissions = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{studio_id: studio.id})
         
-        hash = {"info" : "#{ta.name} #{studio.time}"}
+        hash = {"info" => "#{ta.name} #{studio.time}"}
         (0..@assignment.rubric_fields.size - 1).each do |index|
           hash[@assignment.rubric_fields[index].name] = 0
         end
