@@ -80,6 +80,30 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def per_rubric_overview
+    @assignment = Assignment.find params[:id]
+
+    @array = []
+    Ta.all.each do |ta|
+      ta.studios.each do |studio|
+        submissions = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{studio_id: studio.id})
+        
+        hash = {"info" : "#{ta.name} #{studio.time}"}
+        (0..@assignment.rubric_fields.size - 1).each do |index|
+          hash[@assignment.rubric_fields[index].name] = 0
+        end
+
+        submissions.each do |submission|
+          (0..@assignment.rubric_fields.size - 1).each do |index|
+            hash[@assignment.rubric_fields[index].name] += submission.grading_fields[index].score.to_i if submission.grading_fields[index].present?
+          end
+        end
+        @array.push hash
+      end
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_assignment

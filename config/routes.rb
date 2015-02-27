@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     get "see_submissions", on: :collection
     get "submissions_within", on: :member
     get "score_overview", on: :member
+    get "per_rubric_overview", on: :member
   end
 
   resources :student_labs

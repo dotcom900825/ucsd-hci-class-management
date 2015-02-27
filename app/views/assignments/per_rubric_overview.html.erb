@@ -1,0 +1,24 @@
+<div class='container'>
+  <h2>Per rubric overview for <%= @assignment.name%></h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>TA & Studio</th>
+        <% @assignment.rubric_fields.each do |rubric|%>
+          <th><%= rubric.name%></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @array.each do |hash| %>
+        <tr>
+          <% hash.values.each do |value| %>
+            <td><%= value %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
