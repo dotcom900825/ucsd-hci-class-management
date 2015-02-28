@@ -25,7 +25,7 @@ task :load_w7_sa => :environment do
               sub.sa_points = 1
             end
 
-            sub.final_grade = hash[s_pid] if (sub.ta_grade - 1 - hash[s_pid]).abs <= 1
+            sub.final_grade = (hash[s_pid] + 1) if (sub.ta_grade - 1 - hash[s_pid]).abs <= 1
 
           else
             if (sub.ta_grade - hash[s_pid]).abs <= 2
