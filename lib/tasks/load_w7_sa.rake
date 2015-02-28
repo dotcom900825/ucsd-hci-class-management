@@ -16,14 +16,27 @@ task :load_w7_sa => :environment do
       pids = team.students.pluck(:pid)
       pids.each do |s_pid|
         if hash[s_pid].present?
+
           sub.self_assessment_grade = hash[s_pid]
-          if (sub.ta_grade - hash[s_pid]).abs <= 2
-            sub.sa_points = 2
+          if sub.grading_fields.last.score.to_i > 0
+            if (sub.ta_grade - 1 - hash[s_pid]).abs <= 2
+              sub.sa_points = 2
+            else
+              sub.sa_points = 1
+            end
+
+            sub.final_grade = hash[s_pid] if (sub.ta_grade - 1 - hash[s_pid]).abs <= 1
+
           else
-            sub.sa_points = 1
+            if (sub.ta_grade - hash[s_pid]).abs <= 2
+              sub.sa_points = 2
+            else
+              sub.sa_points = 1
+            end
+
+            sub.final_grade = hash[s_pid] if (sub.ta_grade - hash[s_pid]).abs <= 1
           end
 
-          sub.final_grade = hash[s_pid] if (sub.ta_grade - hash[s_pid]).abs <= 1
           sub.save
           flag = true
         else
