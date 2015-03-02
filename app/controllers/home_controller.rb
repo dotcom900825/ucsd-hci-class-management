@@ -41,7 +41,7 @@ class HomeController < ApplicationController
       score_hash[:quiz] = student.student_quizzes.sum(:score)
       score_hash[:pid] = student.pid[4..-1]
 
-      [:a1=>0, :a2=>0, :a3=>0, :a4=>0, :a5=>0, :a6=>0, :a7=>0, :a8=>0, :a9=>0, :a10=>0, :sa=>0, :lab=>0, :quiz=>0, :extra_credit=>0, :lect_participation=>0, :studio_participation=>0].each do |field|
+      [:a1, :a2, :a3, :a4, :a5, :a6, :a7, :a8, :a9, :a10, :sa, :lab, :quiz, :extra_credit, :lect_participation, :studio_participation].each do |field|
         score_hash[:total] += score_hash[field].to_i
       end
 
