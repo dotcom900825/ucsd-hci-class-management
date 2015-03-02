@@ -45,7 +45,7 @@ class HomeController < ApplicationController
         score_hash[:total] += score_hash[field].to_i
       end
 
-      final_score << score_hash
+      @final_score << score_hash
 
     end 
 
