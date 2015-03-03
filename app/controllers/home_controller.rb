@@ -49,6 +49,9 @@ class HomeController < ApplicationController
 
     end 
 
+    @final_score.sort_by! {|ele| ele[:total]}
+    @final_score.reverse!
+
   end
 
 end
