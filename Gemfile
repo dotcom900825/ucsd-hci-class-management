@@ -58,6 +58,8 @@ gem "d3-rails"
 
 gem "gon"
 
+gem "descriptive_statistics"
+
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
   gem "factory_girl_rails", "~> 4.4.1"
