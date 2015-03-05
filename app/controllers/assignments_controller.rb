@@ -118,7 +118,7 @@ class AssignmentsController < ApplicationController
     (0..@assignment.rubric_fields.size - 1).each do |index|
       sum = []
       @array.each do |ta_info|
-        sum << ta_info[@assignment.rubric_fields[index].name]
+        sum << ta_info[@assignment.rubric_fields[index].name] if ta_info[@assignment.rubric_fields[index].name] > 0
       end
 
       hash[@assignment.rubric_fields[index].name] = sum.standard_deviation
@@ -126,7 +126,7 @@ class AssignmentsController < ApplicationController
 
     sum = []
     @array.each do |ta_info|
-      sum << ta_info["ta_grade"]
+      sum << ta_info["ta_grade"] if ta_info["ta_grade"] > 0
     end
     hash["ta_grade"] = sum.standard_deviation
     @array.push hash
