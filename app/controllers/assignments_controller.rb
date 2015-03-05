@@ -1,4 +1,5 @@
 require 'csv'
+require "descriptive_statistics"
 
 class AssignmentsController < ApplicationController
   before_action :set_assignment, only: [:show, :download_score, :grading_overview, :submissions_within, :score_overview]
@@ -112,6 +113,23 @@ class AssignmentsController < ApplicationController
         @array.push hash
       end
     end
+
+    hash = {"std" => "Standard deviation"}
+    (0..@assignment.rubric_fields.size - 1).each do |index|
+      sum = []
+      @array.each do |ta_info|
+        sum << ta_info[@assignment.rubric_fields[index].name]
+      end
+
+      hash[@assignment.rubric_fields[index].name] = sum.standard_deviation
+    end
+
+    sum = []
+    @array.each do |ta_info|
+      sum << ta_info["ta_grade"]
+    end
+    hash["ta_grade"] = sum.standard_deviation
+    @array.push hash
 
   end
 
