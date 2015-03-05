@@ -21,6 +21,9 @@
           <%= link_to "Quizzes score", student_quizzes_path%>
         </li>
         <li>
+          <%= link_to "Overall score", ranking_path%>
+        </li>
+        <li>
           <a href="#"><%=  current_user.studio.short_name if current_user.studio.present?%></a>
         </li>
       <% end %>

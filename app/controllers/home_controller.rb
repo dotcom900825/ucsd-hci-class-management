@@ -37,7 +37,7 @@ class HomeController < ApplicationController
         end
       end
 
-      score_hash[:lab] = student.student_labs.count
+      score_hash[:lab] = student.student_labs.where(:complete=>true).count
       score_hash[:quiz] = student.student_quizzes.sum(:score)
       score_hash[:pid] = student.pid[4..-1]
 
