@@ -99,10 +99,10 @@ class AssignmentsController < ApplicationController
             hash[@assignment.rubric_fields[index].name] += submission.grading_fields[index].score.to_i if submission.grading_fields[index].present?
           end
 
-          total += submission.final_grade
+          total += submission.ta_grade
         end
 
-        hash["final_grade"] = (total / submissions.size.to_f).round(2)
+        hash["ta_grade"] = (total / submissions.size.to_f).round(2)
 
         (0..@assignment.rubric_fields.size - 1).each do |index|
           hash[@assignment.rubric_fields[index].name] = (hash[@assignment.rubric_fields[index].name] / submissions.size.to_f).round(2) if submissions.size > 0
