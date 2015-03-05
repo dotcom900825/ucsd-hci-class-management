@@ -18,6 +18,8 @@ task :load_w7_sa => :environment do
         if hash[s_pid].present?
 
           sub.self_assessment_grade = hash[s_pid]
+
+          #Make sure assignment 7 has the last grading field as out of box
           if sub.grading_fields.last.score.to_i > 0
             if (sub.ta_grade - 1 - hash[s_pid]).abs <= 2
               sub.sa_points = 2
@@ -40,7 +42,7 @@ task :load_w7_sa => :environment do
           sub.save
           flag = true
         else
-          flat = false 
+          flag = false 
         end
       end
       puts sub.id if !flag

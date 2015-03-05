@@ -17,17 +17,31 @@ task :load_w6_sa => :environment do
       pids.each do |s_pid|
         if hash[s_pid].present?
           sub.self_assessment_grade = hash[s_pid]
-          if (sub.ta_grade - hash[s_pid]).abs <= 2
-            sub.sa_points = 2
+
+          #Make sure assignment 6 has the last grading field as out of box
+          if sub.grading_fields.last.score.to_i > 0
+            if (sub.ta_grade - 1 - hash[s_pid]).abs <= 2
+              sub.sa_points = 2
+            else
+              sub.sa_points = 1
+            end
+
+            sub.final_grade = (hash[s_pid] + 1) if (sub.ta_grade - 1 - hash[s_pid]).abs <= 1
+
           else
-            sub.sa_points = 1
+            if (sub.ta_grade - hash[s_pid]).abs <= 2
+              sub.sa_points = 2
+            else
+              sub.sa_points = 1
+            end
+
+            sub.final_grade = hash[s_pid] if (sub.ta_grade - hash[s_pid]).abs <= 1
           end
 
-          sub.final_grade = hash[s_pid] if (sub.ta_grade - hash[s_pid]).abs <= 1
           sub.save
           flag = true
         else
-          flat = false 
+          flag = false 
         end
       end
       puts sub.id if !flag

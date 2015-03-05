@@ -42,7 +42,7 @@ task :load_w8_sa => :environment do
           sub.save
           flag = true
         else
-          flat = false 
+          flag = false 
         end
       end
       puts sub.id if !flag
