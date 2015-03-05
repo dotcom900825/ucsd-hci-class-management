@@ -86,6 +86,7 @@ class AssignmentsController < ApplicationController
     @array = []
     Ta.all.each do |ta|
       ta.studios.each do |studio|
+        total = 0
         submissions = Submission.where(:assignment=>@assignment).joins(:student).where(:users=>{studio_id: studio.id})
         
         hash = {"info" => "#{ta.name} #{studio.time}"}
@@ -97,10 +98,14 @@ class AssignmentsController < ApplicationController
           (0..@assignment.rubric_fields.size - 1).each do |index|
             hash[@assignment.rubric_fields[index].name] += submission.grading_fields[index].score.to_i if submission.grading_fields[index].present?
           end
+
+          total += submission.final_grade
         end
 
+        hash["final_grade"] = (total / submissions.size.to_f).round(2)
+
         (0..@assignment.rubric_fields.size - 1).each do |index|
-          hash[@assignment.rubric_fields[index].name] = hash[@assignment.rubric_fields[index].name] / submissions.size.to_f if submissions.size > 0
+          hash[@assignment.rubric_fields[index].name] = (hash[@assignment.rubric_fields[index].name] / submissions.size.to_f).round(2) if submissions.size > 0
         end
 
 
