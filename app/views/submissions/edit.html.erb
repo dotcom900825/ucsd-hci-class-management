@@ -25,7 +25,7 @@
           <%= f.fields_for :grading_fields do |builder|%>
             <td>
               <div class='form-group'>
-                <%= builder.number_field :score, :min=>0, :max=>4, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
+                <%= builder.number_field :score, :min=>0, :max=>10, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
               </div>
               <div class='form-group'>
                 <%= builder.text_area :comment, :class=>"form-control input-sm", :placeholder=>"comment"%>
