@@ -1,0 +1,21 @@
+<div class='container'>
+  <h2>Quiz overview</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Student name</th>
+        <th>Score</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @student_quizzes.each do |quiz| %>
+        <tr>
+          <td><%= quiz.student.name %></td>
+          <td><%= quiz.student.score %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

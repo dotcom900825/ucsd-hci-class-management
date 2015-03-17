@@ -7,6 +7,10 @@ class HomeController < ApplicationController
     @studios = Studio.all.order("section_num ASC")
   end
 
+  def quiz
+    @student_quizzes = StudentQuiz.where(:quiz_id=>params[:id])
+  end
+
   def ranking
     @students = Student.all.joins(:submissions).where(:submissions=>{:assignment_id=>2})
     
@@ -28,11 +32,12 @@ class HomeController < ApplicationController
             student.team.students.each do |group_student|
               if group_student.submissions.find_by(:assignment_id=>aid).present?
                 score_hash["a#{aid}".to_sym] = group_student.submissions.find_by(:assignment_id=>aid).try(:final_grade).to_i
+                #puts "#{aid} #{group_student.name} #{group_student.submissions.find_by(:assignment_id=>aid).try(:sa_points).to_i}"
                 score_hash[:sa] += group_student.submissions.find_by(:assignment_id=>aid).try(:sa_points).to_i
               end
             end
           else
-            puts student.id
+            #puts student.id
           end
         end
       end
