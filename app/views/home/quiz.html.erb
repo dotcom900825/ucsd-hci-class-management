@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th>Student name</th>
+        <th>PID</th>
         <th>Score</th>
       </tr>
     </thead>
@@ -14,6 +15,7 @@
         <% if quiz.student.present?%>
           <tr>
             <td><%= quiz.student.name %></td>
+            <td><%= quiz.student.pid%></td>
             <td><%= quiz.score %></td>
           </tr>
         <% end %>
