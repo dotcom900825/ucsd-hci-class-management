@@ -11,10 +11,12 @@
 
     <tbody>
       <% @student_quizzes.each do |quiz| %>
-        <tr>
-          <td><%= quiz.student.name %></td>
-          <td><%= quiz.score %></td>
-        </tr>
+        <% if quiz.student.present?%>
+          <tr>
+            <td><%= quiz.student.name %></td>
+            <td><%= quiz.score %></td>
+          </tr>
+        <% end %>
       <% end %>
     </tbody>
   </table>
