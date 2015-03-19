@@ -20,7 +20,7 @@ task :load_w9_sa => :environment do
           sub.self_assessment_grade = hash[s_pid]
 
           #Make sure assignment 9 has the last grading field as out of box
-          if sub.grading_fields.last.present && sub.grading_fields.last.score.to_i > 0
+          if sub.grading_fields.size > 0 && sub.grading_fields.last.score.to_i > 0
             if (sub.ta_grade - 1 - hash[s_pid]).abs <= 2
               sub.sa_points = 2
             else
