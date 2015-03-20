@@ -57,18 +57,9 @@ class HomeController < ApplicationController
       end
 
       if student.submissions.find_by(:assignment_id=>12).present?
+        if student.submissions.find_by(:assignment_id=>12).grading_fields.size > 0
           score_hash[:lect_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[1].score
           score_hash[:studio_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[0].score
-      else
-        if student.team.present?
-          student.team.students.each do |group_student|
-            if group_student.submissions.find_by(:assignment_id=>12).present?
-              score_hash[:lect_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[1].score
-              score_hash[:studio_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[0].score
-            end
-          end
-        else
-          #puts student.id
         end
       end
 
