@@ -20,7 +20,9 @@ class HomeController < ApplicationController
       
       [1, 2, 4].each do |aid|
         score_hash["a#{aid}".to_sym] = student.submissions.find_by(:assignment_id=>aid).try(:final_grade).to_i
-        score_hash[:sa] += student.submissions.find_by(:assignment_id=>aid).try(:sa_points).to_i
+        unless aid == 1
+          score_hash[:sa] += student.submissions.find_by(:assignment_id=>aid).try(:sa_points).to_i          
+        end
       end
 
       [3, 5, 6, 7, 8, 9, 10].each do |aid|
