@@ -42,6 +42,38 @@ class HomeController < ApplicationController
         end
       end
 
+      if student.submissions.find_by(:assignment_id=>11).present?
+          score_hash[:extra_credit] = student.submissions.find_by(:assignment_id=>11).try(:final_grade).to_i
+      else
+        if student.team.present?
+          student.team.students.each do |group_student|
+            if group_student.submissions.find_by(:assignment_id=>11).present?
+              score_hash[:extra_credit] = group_student.submissions.find_by(:assignment_id=>11).try(:final_grade).to_i
+            end
+          end
+        else
+          #puts student.id
+        end
+      end
+
+      if student.submissions.find_by(:assignment_id=>12).present?
+          score_hash[:lect_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[1].to_i
+          score_hash[:studio_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[0].to_i
+      else
+        if student.team.present?
+          student.team.students.each do |group_student|
+            if group_student.submissions.find_by(:assignment_id=>12).present?
+              score_hash[:lect_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[1].to_i
+              score_hash[:studio_participation] = student.submissions.find_by(:assignment_id=>12).grading_fields[0].to_i
+            end
+          end
+        else
+          #puts student.id
+        end
+      end
+
+
+
       score_hash[:lab] = student.student_labs.where(:complete=>true).count
       score_hash[:quiz] = student.student_quizzes.sum(:score)
       score_hash[:pid] = student.pid[4..-1]
