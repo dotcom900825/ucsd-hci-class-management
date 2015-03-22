@@ -11,6 +11,21 @@ class HomeController < ApplicationController
     @student_quizzes = StudentQuiz.where(:quiz_id=>params[:id])
   end
 
+  def lab_overview
+    if current_user && current_user.is_ta?
+      @student_hash = {}
+      current_user.studios.each do |studio|
+        studio.students.each do |stu|
+          student_hash[stu.name] = stu.labs.size
+        end
+      end
+    else
+      flash[:alert] = "not authorized"
+      redirect_to root_path
+    end
+
+  end
+
   def ranking
     @students = Student.all.joins(:submissions).where(:submissions=>{:assignment_id=>2})
     

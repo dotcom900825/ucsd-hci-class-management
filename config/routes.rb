@@ -27,6 +27,8 @@ Rails.application.routes.draw do
 
   root "home#index"
 
+  get "lab_overview" => "home#lab_overview"
+
   get "studio_stat" => "home#studio_stat"
 
   get "ranking" => "home#ranking"

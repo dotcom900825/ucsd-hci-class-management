@@ -1,0 +1,21 @@
+<div class='container'>
+  <h2>Lab overview</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Student name </th>
+        <th>Lab score</th>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @student_hash.each do |key, value| %>
+        <tr>
+          <td><%= key%></td>
+          <td><%= value%></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
