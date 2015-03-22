@@ -30,6 +30,8 @@
       <% if current_user && current_user.is_ta?%>
         <li>
           <%= link_to "Assignments Submissions", assignments_submissions_path%>
+          <%= link_to "Overall ranking", ranking_path%>
+          <%= link_to "Student Labs overview", lab_overview_path%>
         </li>
       <% end %>
     </ul>
