@@ -33,6 +33,8 @@ Rails.application.routes.draw do
 
   get "ranking" => "home#ranking"
 
+  get "ranking_with_name" => "home#ranking_with_name"
+
   get "quiz_overview/:id" => "home#quiz"
 
   # The priority is based upon order of creation: first created -> highest priority.

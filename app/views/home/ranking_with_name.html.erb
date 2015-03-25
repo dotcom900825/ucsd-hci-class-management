@@ -1,0 +1,25 @@
+<div class='container'>
+  <h2>Total score</h2>
+
+  <table class='table'>
+    <thead>
+      <tr>
+        <th>Student name</th>
+        <th>PID last 5 digit </th>
+        <% ["a1", "a2", "a3", "a4", "a5", "a6", "a7", "a8", "a9", "a10", "self-assessment", "labs", "quizzes", "extra credits", "lec-participation", "studio-participation", "total"].each do |rubric|%>
+          <th><%= rubric%></th>
+        <% end %>
+      </tr>
+    </thead>
+
+    <tbody>
+      <% @final_score.each do |hash| %>
+        <tr>
+          <% hash.values.each do |value| %>
+            <td><%= value %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
