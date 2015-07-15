@@ -58,11 +58,25 @@ gem "d3-rails"
 
 gem "gon"
 
-gem "descriptive_statistics"
+# gem "descriptive_statistics"
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"
   gem "factory_girl_rails", "~> 4.4.1"
+
+  gem 'capistrano', '~> 3.2.1'
+  
+  # rails specific capistrano functions
+  gem 'capistrano-rails', '~> 1.1.0'
+  
+  # integrate bundler with capistrano
+  gem 'capistrano-bundler'
+  
+  # if you are using Rbenv
+  gem 'capistrano-rbenv', "~> 2.0"
+  
+  # include helper tasks
+  gem 'capistrano-cookbook', require: false
 end
 
 group :test do
@@ -79,7 +93,7 @@ gem 'bootstrap-wysihtml5-rails', '0.3.1.24'
 # gem 'bcrypt', '~> 3.1.7'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
