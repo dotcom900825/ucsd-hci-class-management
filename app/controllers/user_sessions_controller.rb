@@ -6,7 +6,7 @@ class UserSessionsController < ApplicationController
   def create
     if @user = login(params[:email], params[:password])
       if @user.is_student?
-        redirect_back_or_to(:assignments, notice: 'Login successful')
+        redirect_back_or_to(:assignments) #, notice: 'Login successful')
       else
         redirect_to assignments_submissions_path
       end

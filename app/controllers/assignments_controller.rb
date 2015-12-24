@@ -9,7 +9,13 @@ class AssignmentsController < ApplicationController
   def index
     if current_user.present?
       @assignments = Assignment.all.order("created_at ASC")
-      @submissions = current_user.submissions.all.includes(:assignment)
+      # @submissions = current_user.submissions.all.includes(:assignment)
+      @submissions = {}
+      @assignments.each do |assignment|
+        submission = Submission.where(student: current_user, assignment: assignment).order(:updated_at).last
+        submission = find_team_submission(assignment) if submission.nil?
+        @submissions[assignment] = submission
+      end
     else
       flash[:alert] = "Login in required"
       redirect_to root_path
@@ -21,6 +27,7 @@ class AssignmentsController < ApplicationController
   def show
     if current_user.present?
       @submission = current_user.submissions.find_by(:assignment=>@assignment)
+      @submission = find_team_submission(@assignment) if @submission.nil?
       @submission = current_user.submissions.new(:assignment=>@assignment) unless @submission.present?
     else
       flash[:alert] = "Login in required"
@@ -144,5 +151,10 @@ class AssignmentsController < ApplicationController
         flash[:notice] = "Permission denied"
         redirect_to root_url and return
       end
+    end
+
+    def find_team_submission(assignment)
+      return nil if current_user.team_id.nil? || !assignment.team_based
+      Submission.where(student: Team.find(current_user.team_id).students, assignment: assignment).order(:final_grade).last
     end
 end
