@@ -5,9 +5,10 @@
     <thead>
       <tr>
         <th>Assignment name</th>
+        <th>Type</th>
         <th>Submission Status</th>
         <th>Submission Deadline</th>
-        <th>Grade & Comment</th>
+        <th>Grade &amp; Comment</th>
       </tr>
     </thead>
 
@@ -17,7 +18,10 @@
           <tr>
             <td><%= link_to assignment.name, assignment%></td>
             <td>
-              <% submission = @submissions.find_by(:assignment=>assignment)%>
+              <%= assignment.team_based ? "Team" : "Individual" %>
+            </td>
+            <td>
+              <% submission = @submissions[assignment]%>
               <% if submission%>
                 <span class="label label-primary">Last Submitted at <%= submission.updated_at.to_s(:ss)%></span>
               <% end %>
@@ -27,7 +31,7 @@
             </td>
             <td>
               <% if submission && submission.grading_fields.size > 0%>
-                <span class='label label-danger'>Grade & Comment last updated at <%= submission.grading_fields.first.updated_at.to_s(:ss)%></span> 
+                <span class='label label-danger'>Grade &amp; Comment last updated at <%= submission.grading_fields.first.updated_at.to_s(:ss)%></span> 
               <% end %>
             </td>
           </tr>

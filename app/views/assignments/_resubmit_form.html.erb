@@ -1,3 +1,4 @@
+<% if @submission.nil? || @submission.student == current_user %>
 <%= form_for @submission, :method=>:patch do |f| %>
   <h4>Resubmit</h4>
   <div class="form-group">
@@ -19,4 +20,7 @@
   <div class="form-group">
     <%= f.submit "Submit", :class=>"btn btn-primary"%>
   </div>
+<% end %>
+<% else %>
+  <p><u>NOTE:</u> Only <b><%= @submission.student.name %></b> from your team can resubmit this assignment.</p>
 <% end %>
