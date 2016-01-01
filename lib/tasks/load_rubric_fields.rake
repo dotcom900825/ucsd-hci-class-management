@@ -1,5 +1,5 @@
 task :load_rubric_fields => [:environment] do
-  a = Assignment.find_by_name('Waiting in Line')
+  a = Assignment.find_by_name('Design Thinking')
   a.rubric_fields.create(:name=>'Interview')
   a.rubric_fields.create(:name=>'Ideate and Iterate')
   a.rubric_fields.create(:name=>'Prototype')
