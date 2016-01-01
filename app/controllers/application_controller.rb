@@ -1,7 +1,6 @@
 class ApplicationController < ActionController::Base
   # Prevent CSRF attacks by raising an exception.
   # For APIs, you may want to use :null_session instead.
-  $studio_due = Time.parse("2016/01/10 23:59")
   protect_from_forgery with: :exception
 
   rescue_from CanCan::AccessDenied do |exception|
