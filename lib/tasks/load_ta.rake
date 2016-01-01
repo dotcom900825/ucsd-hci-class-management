@@ -1,4 +1,4 @@
-password = 'ucsd-hci-170'
+password = 'UCSD-HCI-170'
 
 task :load_tas => :environment do
   Ta.create(:email=>"tngoon@ucsd.edu", :pid=>"none", :password=>password, :password_confirmation=>password, :name=>"Tricia Ngoon")
