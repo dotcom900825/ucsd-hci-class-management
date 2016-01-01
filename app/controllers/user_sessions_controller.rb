@@ -6,7 +6,13 @@ class UserSessionsController < ApplicationController
   def create
     if @user = login(params[:email], params[:password].upcase)
       if @user.is_student?
-        redirect_back_or_to(:assignments) #, notice: 'Login successful')
+        if Time.now <= STUDIO_DUE && current_user.studio.nil?
+          redirect_to edit_student_path(current_user)
+          flash[:notice] = "Studio signup is due."
+        else
+          # redirect_back_or_to(root_path)
+          redirect_back_or_to(:assignments, notice: 'Login successful')
+        end
       else
         redirect_to assignments_submissions_path
       end

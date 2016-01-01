@@ -15,6 +15,10 @@ class StudentsController < ApplicationController
   end
 
   def edit
+    unless Time.now <= STUDIO_DUE
+      redirect_to assignments_path
+      flash[:notice] = "Studio signup is due."
+    end
     @student = Student.find(params[:id])
   end
 
@@ -23,6 +27,7 @@ class StudentsController < ApplicationController
     @student.update_attribute(:studio_id, params[:student][:studio_id])
     flash[:success] = "Studio update success"
     redirect_to assignments_path
+    # redirect_to root_path
   end
 
   private

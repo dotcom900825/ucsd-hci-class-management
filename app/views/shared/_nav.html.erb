@@ -12,19 +12,16 @@
           <%= link_to "Assignments", assignments_path%>
         </li>
         <li>
-          <%= link_to "See other students submissions", see_submissions_assignments_path%>
+          <%= link_to "Labs", student_labs_path%>
         </li>
         <li>
-          <%= link_to "Lab status", student_labs_path%>
+          <%= link_to "Quizzes", student_quizzes_path%>
         </li>
         <li>
-          <%= link_to "Quizzes score", student_quizzes_path%>
+          <%= link_to "Ranking", ranking_path%>
         </li>
         <li>
-          <%= link_to "Overall score", ranking_path%>
-        </li>
-        <li>
-          <a href="#"><%=  current_user.studio.short_name if current_user.studio.present?%></a>
+          <%= link_to "Other Student Submissions", see_submissions_assignments_path%>
         </li>
       <% end %>
       <% if current_user && current_user.is_ta?%>
@@ -42,10 +39,15 @@
 
     <% if current_user.present?%>
       <ul class="nav navbar-nav navbar-right">
+        <li>
+          <a><%= current_user.studio.short_name if current_user.is_student? && current_user.studio.present? %></a>
+        </li>
         <li class="dropdown">
-          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= current_user.name%> <b class="caret"></b></a>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown"> <%= current_user.name %> <b class="caret"></b></a>
           <ul class="dropdown-menu">
+            <% if Time.now <= STUDIO_DUE %>
             <li><%= link_to "Change Studio", edit_student_path(current_user) if current_user.is_student?%></li>
+            <% end %>
             <li><%= link_to "Logout", logout_path, :method=>:post%></li>
           </ul>
         </li>
