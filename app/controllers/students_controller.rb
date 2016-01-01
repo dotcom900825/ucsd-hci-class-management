@@ -16,8 +16,8 @@ class StudentsController < ApplicationController
 
   def edit
     unless Time.now <= STUDIO_DUE
-      redirect_to assignments_path
       flash[:notice] = "Studio signup is due."
+      redirect_to assignments_path
     end
     @student = Student.find(params[:id])
   end
