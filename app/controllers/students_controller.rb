@@ -15,6 +15,7 @@ class StudentsController < ApplicationController
   end
 
   def edit
+    redirect_to assignments_path unless Time.now <= $studio_due
     @student = Student.find(params[:id])
   end
 
@@ -23,6 +24,7 @@ class StudentsController < ApplicationController
     @student.update_attribute(:studio_id, params[:student][:studio_id])
     flash[:success] = "Studio update success"
     redirect_to assignments_path
+    # redirect_to root_path
   end
 
   private

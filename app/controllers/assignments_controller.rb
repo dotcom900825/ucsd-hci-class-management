@@ -154,7 +154,7 @@ class AssignmentsController < ApplicationController
     end
 
     def find_team_submission(assignment)
-      return nil if current_user.team_id.nil? || !assignment.team_based
-      Submission.where(student: Team.find(current_user.team_id).students, assignment: assignment).order(:final_grade).last
+      return nil unless current_user.team && assignment.team_based
+      Submission.where(student: current_user.team.students, assignment: assignment).order(:final_grade).last
     end
 end
