@@ -14,11 +14,14 @@
     </thead>
     <tbody>
       <tr>
-        <% @submission.grading_fields.each do |field| %>
-          <td>
-            <%= field.score%>
-            <p><%= field.comment%></p>
-          </td>
+        <% @assignment.rubric_fields.each do |field| %>
+          <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
+          <% if grading_field %>
+            <td>
+              <%= grading_field.score%>
+              <p><%= grading_field.comment%></p>
+            </td>
+          <% end %>
         <% end %>
         <td>
           <%= @submission.self_assessment_grade%>

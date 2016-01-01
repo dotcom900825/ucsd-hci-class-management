@@ -28,7 +28,7 @@ gem "twitter-bootstrap-rails"
 
 gem "less-rails"
 
-gem 'designmodo-flatuipro-rails', '~> 1.3.1.0.branch'
+gem 'designmodo-flatuipro-rails', '~> 1.3.2.0.branch'
 
 gem "therubyracer"
 
@@ -58,7 +58,7 @@ gem "d3-rails"
 
 gem "gon"
 
-# gem "descriptive_statistics"
+gem "descriptive_statistics"
 
 group :development, :test do
   gem "rspec-rails", "~> 3.1.0"

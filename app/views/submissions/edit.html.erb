@@ -18,19 +18,25 @@
       </tr>
     </thead>
 
-    <% @assignment.rubric_fields.count.times {@submission.grading_fields.build} if @submission.grading_fields.count == 0%>
     <%= form_for @submission, :method=>:patch do |f|%>
       <tbody>
         <tr>
-          <%= f.fields_for :grading_fields do |builder|%>
-            <td>
-              <div class='form-group'>
-                <%= builder.number_field :score, :min=>0, :max=>10, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
-              </div>
-              <div class='form-group'>
-                <%= builder.text_area :comment, :class=>"form-control input-sm", :placeholder=>"comment"%>
-              </div>
-            </td>
+          <% @assignment.rubric_fields.each do |field| %>
+            <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first%>
+            <% if grading_field.nil? %>
+              <% grading_field = @submission.grading_fields.new(rubric_field_id: field.id) %>
+            <% end %>
+            <%= f.fields_for :grading_fields, grading_field do |builder|%>
+              <td>
+                <div class='form-group'>
+                  <%= builder.number_field :score, :min=>0, :max=>10, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
+                </div>
+                <div class='form-group'>
+                  <%= builder.text_area :comment, :class=>"form-control input-sm", :placeholder=>"comment"%>
+                </div>
+                <%= builder.hidden_field :rubric_field_id%>
+              </td>
+            <% end %>
           <% end %>
           <td>
             <div class='form-group'>

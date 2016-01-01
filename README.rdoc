@@ -1,28 +1,33 @@
-== README
+Welcome to the UCSD HCI 170 Class Management!!
+===================
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is the software we use to run the [Intro HCI class](http://d.ucsd.edu/class/intro-hci/2016/) in UCSD
 
-Things you may want to cover:
+After you have your local dev environment setup or have the app deployed on a production environment, there are few prep works you need to do.
 
-* Ruby version
+1. Update the TA info in lib/tasks/load_ta.rake and then load it into the app by running `rake load_tas RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
 
-* System dependencies
+2. Update and fill in the TA studio info (Make sure you fill in the section num column, which is the one the student selected when they enrolled the class, and change the TA's password) in lib/tasks/load_studios.rake and then load it into the app by running `rake load_studios RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
 
-* Configuration
+3. Review the lab info in the load_labs.rake, update it if is different from the current offering, then load it into the app by running `rake load_labs RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
 
-* Database creation
+4. Review the assignment info in the load_assignments.rake, update it if is different from the current offering, especially the due date for each assignment. Then load it into the app by running `rake load_assignments RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
 
-* Database initialization
+5. Review the assignment rubric fields in the load_rubric_field.rake, update it if is different from the current offering, then load it into the app by running `rake load_rubric_fields RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
 
-* How to run the test suite
+6. Generate the enrolled student csv file, and put it under lib/tasks folder with the filename student_list.csv, the columns are : Section Num, PID, Fullname, Credit, College, Major, Year, Email. Once the list is ready, you can load it into the app by running `rake load_students RAILS_ENV=YOUR_CURRENT_RAILS_ENV, by default, the student will use their PID as password`
 
-* Services (job queues, cache servers, search engines, etc.)
+With that, you are all set for the initial setup.
 
-* Deployment instructions
+===================
+There are few more rake task files to handle some class logistic or grading tasks.
 
-* ...
+* In assignment one, one of the rubric field we have is *Lab prep*, as long as the student has completed lab 1, they will automatically get the point. Since the student will fill in the Google form after they finish their lab, we can download the Google form's output as a csv file, and copy the student PID column, insert into the load_a1_lab_prep.rake, and run the rake task.
 
+* After we finish grading the quiz, we can import the score by running tasks inside load_quiz.rake, all you need to do is put the exported quiz score csv file into the lib/tasks folder and run the task such as `rake load_quiz1 RAILS_ENV=production`
 
-Please feel free to use a different markup language if you do not plan to run
-<tt>rake doc:app</tt>.
+* Every week, we also need to load the student's self assessment score after Friday's studio and after all the TAs have finished grading. In order to do that, you need to export student's self assessment's total score from the Google Spreadsheet into the csv format: PID, Total self assessment score. Then put that csv file into the lib/tasks/w{week}_sa.csv file. Then import the self assessment score by running `rake load_w{week}_sa RAILS_ENV=YOUR_CURRENT_RAILS_ENV`
+
+====================
+For the first week assignment, since the student only need to turn in worksheet and questions in studio, we will ask them to login to the site and upload a random file so that we can grade their submission online.
+
