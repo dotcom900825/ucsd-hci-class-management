@@ -10,8 +10,7 @@ class UserSessionsController < ApplicationController
           flash[:notice] = "Studio signup is due."
           redirect_to edit_student_path(current_user)
         else
-          # redirect_back_or_to(root_path)
-          redirect_back_or_to(:assignments, notice: 'Login successful')
+          redirect_back_or_to(root_path, notice: 'Login successful')
         end
       else
         redirect_to assignments_submissions_path

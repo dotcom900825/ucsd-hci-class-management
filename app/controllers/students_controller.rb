@@ -26,8 +26,7 @@ class StudentsController < ApplicationController
     @student = Student.find(params[:id])
     @student.update_attribute(:studio_id, params[:student][:studio_id])
     flash[:success] = "Studio update success"
-    redirect_to assignments_path
-    # redirect_to root_path
+    redirect_to root_path
   end
 
   private
