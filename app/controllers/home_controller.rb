@@ -195,9 +195,8 @@ class HomeController < ApplicationController
   end
 
   private
-    def find_team_submission(assignment, student=current_user)
-      return nil unless student.team && assignment.team_based
-      Submission.where(student: student.team.students, assignment: assignment).order(:final_grade).last
-    end
-
+  def find_team_submission(assignment, student=current_user)
+    return nil unless student.team && assignment.team_based
+    Submission.where(student: student.team.students, assignment: assignment).order(:final_grade).last
+  end
 end
