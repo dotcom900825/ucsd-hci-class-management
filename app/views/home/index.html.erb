@@ -3,6 +3,68 @@
     <div class="alert alert-<%= key %>"><%= value %></div>
   <% end %>
   
+  <% if current_user && current_user.is_student? %>
+  <div class="container">
+    <% total = @ranking[current_user][:total] %>
+    <% team = current_user.team %>
+    <h3><%= current_user.name %></h3>
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Studio</h6>
+        <table class="table summary">
+          <tbody>
+            <tr><td>TA: </td><td><%= current_user.studio ? current_user.studio.ta.name : "N/A" %></td></tr>
+            <tr><td>Theme: </td><td><%= current_user.studio ? current_user.studio.theme : "N/A" %></td></tr>
+            <tr><td>Location: </td><td><%= current_user.studio ? current_user.studio.location : "N/A" %></td></tr>
+            <tr><td>Time: </td><td><%= current_user.studio ? current_user.studio.time : "N/A" %></td></tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6">
+      <h6>Statistics</h6>
+        <table class="table summary">
+          <tbody>
+            <tr><td>Overall Rank: </td><td><%= @grades.empty? ? "N/A" : @grades.index(total)+1 %></td></tr>
+            <tr><td>Total Score: </td><td><%= total %></td></tr>
+            <tr><td>Team Members: </td>
+              <td>
+                <% if team.present? %>
+                  <% team.students.each do |student|%>
+                    <%= student.name %><br/>
+                  <% end %>
+                <% else %>
+                  N/A
+                <% end %>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-6">
+        <h6>Grade Breakdown</h6>
+        <table class="table summary">
+          <tbody>
+            <tr>
+              <td><%= link_to "Assignments", :assignments %>:</td>
+              <td><%= total - current_user.student_labs.where(:complete=>true).count - current_user.student_quizzes.sum(:score) %></td>
+            </tr>
+            <tr>
+              <td><%= link_to "Labs", :student_labs %>:</td>
+              <td><%= current_user.student_labs.where(:complete=>true).count %></td>
+            </tr>
+            <tr>
+              <td><%= link_to "Quizzes", :student_quizzes %>:</td>
+              <td><%= current_user.student_quizzes.sum(:score) %></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="col-md-6"></div>
+    </div>
+  </div>
+  <% else %>
   <div class='jumbotron'>
     <h1>Cse170/Cogs120</h1>
     <p>
@@ -12,6 +74,7 @@
       <% end %>
     </p>
   </div>
+  <% end %>
   <hr>
   
 </div>

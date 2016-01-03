@@ -1,6 +1,28 @@
 class HomeController < ApplicationController
   def index
-    
+    if current_user.present?
+      @ranking = {}
+      @grades = []
+      Student.all.each do |student|
+        @ranking[student] = {
+          :name => student.name,
+          :assignments => [],
+          :labs => student.student_labs,
+          :quizzes => student.student_quizzes,
+          :total => 0
+        }
+        Assignment.all.order("created_at ASC").each do |assignment|
+          submission = Submission.where(student: student, assignment: assignment).order(:updated_at).last
+          submission = find_team_submission(assignment, student) if submission.nil?
+          @ranking[student][:assignments] << submission
+          @ranking[student][:total] += submission.final_grade unless submission.nil?
+        end
+        @ranking[student][:total] += @ranking[student][:labs].where(:complete=>true).count
+        @ranking[student][:total] += @ranking[student][:quizzes].sum(:score)
+        @grades << @ranking[student][:total]
+      end
+      @grades = @grades.uniq.sort { |x,y| y <=> x }
+    end
   end
 
   def studio_stat
@@ -20,7 +42,7 @@ class HomeController < ApplicationController
         end
       end
     else
-      flash[:alert] = "not authorized"
+      flash[:alert] = "Not Authorized"
       redirect_to root_path
     end
 
@@ -171,5 +193,11 @@ class HomeController < ApplicationController
     @final_score.sort_by! {|ele| ele[:total]}
     @final_score.reverse!
   end
+
+  private
+    def find_team_submission(assignment, student=current_user)
+      return nil unless student.team && assignment.team_based
+      Submission.where(student: student.team.students, assignment: assignment).order(:final_grade).last
+    end
 
 end

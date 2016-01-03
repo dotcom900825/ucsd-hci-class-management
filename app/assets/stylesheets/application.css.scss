@@ -14,10 +14,20 @@
  *= require_self
  */
 
-
 .navbar-nav > li > a {
-  font-size: 14px;
-  padding: 15px 21px;
-  line-height: 23px;
-  font-weight: 700;
+    font-size: 14px;
+    padding: 15px 21px;
+    line-height: 23px;
+    font-weight: 700;
+}
+
+.summary {
+    tbody > tr {
+        td:nth-child(1) {
+            font-weight: bold;
+        }
+        td {
+            width: 50%;
+        }
+    }
 }
