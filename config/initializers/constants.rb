@@ -1,1 +1,2 @@
 STUDIO_DUE = Time.parse("2016/01/10 23:59")
+STUDIO_CAP = 18
