@@ -14,7 +14,6 @@ class StudentObj
   end
 end
 
-
 task :load_students => :environment do
   students_list = []
   CSV.foreach(File.expand_path('../student_list.csv', __FILE__)) do |row|
@@ -29,8 +28,6 @@ task :load_students => :environment do
     stu = StudentObj.new(section_id, pid, name, college, major, level, email)
     students_list << stu
   end
-
-  students_list.shuffle!
 
   students_list.each do |student|
     studio = Studio.where(:section_num=>student.section_id).first
