@@ -2,7 +2,7 @@
   <% @studios.each do |studio|%>
     <span><%= studio.studio_name%></span>
     <div class="progress">
-      <div class="progress-bar" role="progressbar" aria-valuenow="<%= studio.students_count%>" aria-valuemin="0" aria-valuemax="35" style="width: <%= studio.students_count%>%;">
+      <div class="progress-bar" role="progressbar" aria-valuenow="<%= studio.students_count%>" aria-valuemin="0" aria-valuemax="<%= STUDIO_CAP %>" style="width: <%= studio.students_count <= STUDIO_CAP ? studio.students_count * 100/STUDIO_CAP : 100 %>%;">
         <%= studio.students_count%>
       </div>
     </div>
