@@ -33,3 +33,5 @@ For the first week assignment, since the student only need to turn in worksheet 
 
 After the team has been formed, the TAs need to insert the team data for their studio to the website. They can easily do that by going to the admin/team dashboard panel and create records. In the future we might implement features to allow student submit their team info.
 
+To import weekly student submitted lab, if you used Google Spreadsheet to record the submitted info, export the student PID list for each lab. And put them under the lib/tasks folder under the name `student_lab_#{lab_num}.csv` and then run `rake 'load_student_labs[#{lab_num}]' RAILS_ENV=YOUR_CURRENT_ENVIRONMENT`
+

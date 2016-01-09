@@ -38,32 +38,36 @@
       </tr>
     </tbody>
   </table>
+  <h4>TA Comment</h4>
+  <p><%= @submission.comment%></p>
 <% else %>
  <table class='table'>
-      <thead>
-        <tr>
-          <% @assignment.rubric_fields.each do |field|%>
-            <th><%= field.name%></th>
-          <% end %>
-          <th style="width: 110px;">TA Grade</th>
-          <th style="width: 110px;">Final Grade</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr>
-          <% @submission.grading_fields.each do |field| %>
-            <td>
-              <%= field.score%>
-              <p><%= field.comment%></p>
-            </td>
-          <% end %>
+    <thead>
+      <tr>
+        <% @assignment.rubric_fields.each do |field|%>
+          <th><%= field.name%></th>
+        <% end %>
+        <th style="width: 110px;">TA Grade</th>
+        <th style="width: 110px;">Final Grade</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% @submission.grading_fields.each do |field| %>
           <td>
-            <%= @submission.ta_grade%>
+            <%= field.score%>
+            <p><%= field.comment%></p>
           </td>
-          <td>
-            <%= @submission.final_grade%>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+        <% end %>
+        <td>
+          <%= @submission.ta_grade%>
+        </td>
+        <td>
+          <%= @submission.final_grade%>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <h4>TA Comment</h4>
+  <p><%= @submission.comment%></p>
 <% end %>

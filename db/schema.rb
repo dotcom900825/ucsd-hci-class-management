@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160101195018) do
+ActiveRecord::Schema.define(version: 20160109173950) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -105,6 +105,7 @@ ActiveRecord::Schema.define(version: 20160101195018) do
     t.integer  "ta_grade",                default: 0
     t.integer  "sa_points",               default: 0
     t.integer  "final_grade",             default: 0
+    t.text     "comment"
   end
 
   create_table "teams", force: true do |t|
