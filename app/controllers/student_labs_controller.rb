@@ -3,6 +3,10 @@ class StudentLabsController < ApplicationController
 
   def index
     @student_labs = current_user.student_labs
+    @ignorables = []
+    @student_labs.each do |student_lab|
+      @ignorables << student_lab.lab_id if student_lab.complete
+    end
   end
 
   def create

@@ -5,6 +5,7 @@
     <thead>
       <tr>
         <th>Lab name</th>
+        <th>Github URL</th>
         <th>Status</th>
         <th>Stretch goal finished</th>
       </tr>
@@ -13,7 +14,8 @@
     <tbody>
       <% @student_labs.each do |sl| %>
         <tr>
-          <td><%= sl.lab.name%></td>
+          <td><%= sl.lab.name %></td>
+          <td><%= sl.github_link %></td>
           <td>
             <% if sl.complete %>
               <span class="label label-primary">Complete</span>
@@ -37,7 +39,7 @@
     <h4>Submit Lab</h4>
     <div class="form-group">
       <%= f.label 'Please select the lab'%>
-      <%= f.select :lab_id, options_from_collection_for_select(Lab.where.not(id: current_user.student_labs.pluck(:lab_id)), "id", "name"), :class=>"form-control select select-primary"%>
+      <%= f.select :lab_id, options_from_collection_for_select(Lab.where.not(id: @ignorables), "id", "name"), :class=>"form-control select select-primary"%>
     </div>
 
     <div class="form-group">
@@ -48,7 +50,7 @@
     <div class='form-group'>
       <label>
         <%= f.check_box :stretch_goal%>
-        &nbsp
+        &nbsp;
         Stretch goal finished
       </label>
     </div>
