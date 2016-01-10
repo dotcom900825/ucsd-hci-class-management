@@ -23,6 +23,17 @@ class AssignmentsController < ApplicationController
     end
   end
 
+  def api_data
+    result = {}
+    @assignment = Assignment.find(params[:id])
+    result[:assignment_name] = @assignment.name
+    result[:criteria] = []
+    @assignment.rubric_fields.each do |rubric|
+      result[:criteria] << {:title=>rubric.name}
+    end
+    render json: result
+  end
+
   # GET /assignments/1
   # GET /assignments/1.json
   def show
