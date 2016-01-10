@@ -6,6 +6,7 @@
       <tr>
         <th>Lab name</th>
         <th>Status</th>
+        <th>Stretch goal finished</th>
       </tr>
     </thead>
 
@@ -18,6 +19,13 @@
               <span class="label label-primary">Complete</span>
             <% else %>
               <span class="label label-danger">Missing</span>
+            <% end %>
+          </td>
+          <td>
+            <% if sl.stretch_goal %>
+              <span class="label label-primary">Yes</span>
+            <% else %>
+              <span class="label label-danger">No</span>
             <% end %>
           </td>
         </tr>
@@ -35,6 +43,14 @@
     <div class="form-group">
       <%= f.label 'Your Github repository url for this completed lab'%>
       <%= f.url_field :github_link, :class=>"form-control"%>
+    </div>
+
+    <div class='form-group'>
+      <label>
+        <%= f.check_box :stretch_goal%>
+        &nbsp
+        Stretch goal finished
+      </label>
     </div>
 
     <div class="form-group">
