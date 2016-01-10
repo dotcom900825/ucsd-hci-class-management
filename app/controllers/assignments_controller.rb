@@ -2,6 +2,7 @@ require 'csv'
 require "descriptive_statistics"
 
 class AssignmentsController < ApplicationController
+  before_filter :require_login
   before_action :set_assignment, only: [:show, :download_score, :grading_overview, :submissions_within, :score_overview]
   before_action :check_permission, only: [:grading_overview, :download_score]
   # GET /assignments

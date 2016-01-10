@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160109173950) do
+ActiveRecord::Schema.define(version: 20160110171940) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -64,9 +64,10 @@ ActiveRecord::Schema.define(version: 20160109173950) do
   create_table "student_labs", force: true do |t|
     t.integer  "student_id"
     t.integer  "lab_id"
-    t.boolean  "complete",   default: false
+    t.boolean  "complete",    default: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.text     "github_link"
   end
 
   add_index "student_labs", ["student_id", "lab_id"], name: "index_student_labs_on_student_id_and_lab_id", unique: true, using: :btree
