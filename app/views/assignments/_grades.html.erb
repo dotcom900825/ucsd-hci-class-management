@@ -1,42 +1,3 @@
-<% if @assignment.id > 1%>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Criteria</th>
-        <th>Score</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @assignment.rubric_fields.each do |field| %>
-      <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
-        <tr>
-          <td><%= field.name %></td>
-          <td><%= grading_field.score %></td>
-        </tr>
-      <% end %>
-      <tr>
-        <td>Self Assessment Grade</td>
-        <td><%= @submission.self_assessment_grade %></td>
-      </tr>
-      <tr>
-        <td>TA Grade</td>
-        <td><%= @submission.ta_grade %></td>
-      </tr>
-      <tr>
-        <td>Final Grade</td>
-        <td><%= @submission.final_grade %></td>
-      </tr>
-      <tr>
-        <td>Self Assessment Points</td>
-        <td><%= @submission.sa_points%></td>
-      </tr>
-      <tr>
-        <strong>TA's Comment:</strong>
-        <p><%= @submission.comment %></p>
-      </tr>
-    </tbody>
-  </table>
-<% else %>
   <table class="table">
     <thead>
       <tr>
@@ -73,4 +34,3 @@
       </tr>
     </tbody>
   </table>
-<% end %>
