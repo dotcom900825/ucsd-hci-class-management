@@ -45,7 +45,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @assignment.grading_fields.each do |field| %>
+      <% @submission.grading_fields.each do |field| %>
         <tr>
           <td><%= field.name %></td>
           <td><%= field.score %></td>
