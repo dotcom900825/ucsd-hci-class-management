@@ -6,10 +6,11 @@
       </tr>
     </thead>
     <tbody>
-      <% @submission.grading_fields.each do |field| %>
+      <% @assignment.rubric_fields.each do |field| %>
+      <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
         <tr>
           <td><%= field.name %></td>
-          <td><%= field.score %></td>
+          <td><%= grading_field.score %></td>
         </tr>
       <% end %>
       <tr>
