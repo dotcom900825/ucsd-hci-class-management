@@ -17,7 +17,7 @@ class HomeController < ApplicationController
           @ranking[student][:assignments] << submission
           @ranking[student][:total] += submission.final_grade unless submission.nil?
         end
-        @ranking[student][:total] += @ranking[student][:labs].where(:complete=>true).count
+        @ranking[student][:total] += @ranking[student][:labs].where(:complete=>true).count * 2
         @ranking[student][:total] += @ranking[student][:quizzes].sum(:score)
         @grades << @ranking[student][:total]
       end

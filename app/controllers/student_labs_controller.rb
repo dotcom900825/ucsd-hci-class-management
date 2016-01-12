@@ -3,6 +3,10 @@ class StudentLabsController < ApplicationController
 
   def index
     @student_labs = current_user.student_labs
+    @hidden_labs = []
+    Lab.all.each do |lab|
+      @hidden_labs << lab.id if lab.deadline.nil? || Time.now > lab.deadline
+    end
   end
 
   def create
