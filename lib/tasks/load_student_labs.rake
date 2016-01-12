@@ -1,11 +1,18 @@
 require "csv"
 
 task :load_student_labs, [:lab] => :environment do |t, args|
+  puts args
   CSV.foreach(File.expand_path("../student_lab_#{args[:lab]}.csv", __FILE__)) do |row|
-    pid = row[0]
-    s = Student.where(pid: pid).first
-    if pid && s.present?
-      s.student_labs.create(lab_id: args[:lab]) if s.student_labs.where(lab_id: args[:lab]).count == 0
+    pid = row[0].strip
+    github_link = row[1].strip
+    stretch_goal = row[2].strip == "Yes" ? true : false
+    student = Student.find_by(:pid=>pid)
+    lab = Lab.find(args[:lab])
+    submission = StudentLab.find_by(:student=>student, :lab=>lab)
+    if submission
+      submission.update(:complete=>true, :github_link=>github_link, :stretch_goal=>stretch_goal)
+    else
+      StudentLab.create(:student=>student, :lab=>lab, :complete=>true, :github_link=>github_link, :stretch_goal=>stretch_goal)
     end
   end
 end
