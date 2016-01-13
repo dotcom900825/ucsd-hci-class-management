@@ -38,7 +38,7 @@ class HomeController < ApplicationController
       @student_hash = {}
       current_user.studios.each do |studio|
         studio.students.each do |stu|
-          @student_hash[stu.name] = stu.labs.size
+          @student_hash[stu.name] = stu.labs.size * 2
         end
       end
     else
@@ -104,7 +104,7 @@ class HomeController < ApplicationController
 
 
 
-      score_hash[:lab] = student.student_labs.where(:complete=>true).count
+      score_hash[:lab] = student.student_labs.where(:complete=>true).count * 2
       score_hash[:quiz] = student.student_quizzes.sum(:score)
       score_hash[:pid] = student.pid[4..-1]
 
@@ -177,7 +177,7 @@ class HomeController < ApplicationController
 
 
 
-      score_hash[:lab] = student.student_labs.where(:complete=>true).count
+      score_hash[:lab] = student.student_labs.where(:complete=>true).count * 2
       score_hash[:quiz] = student.student_quizzes.sum(:score)
       score_hash[:pid] = student.pid[4..-1]
       score_hash[:name] = student.name

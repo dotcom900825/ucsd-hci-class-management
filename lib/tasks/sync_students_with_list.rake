@@ -16,7 +16,7 @@ end
 
 task :sync_students_with_list => :environment do
   student_hash = {}
-  EXCEPTIONS = ["U07217399"]
+  EXCEPTIONS = ["A00000000", "U07217399"]
   CSV.foreach(File.expand_path('../students_without_section_num.csv', __FILE__)) do |row|
     pid = row[0]
     name = row[1]
