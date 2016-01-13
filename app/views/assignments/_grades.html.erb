@@ -10,7 +10,7 @@
       <% max_points = 0 %>
       <% @assignment.rubric_fields.each do |field| %>
       <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
-      <% max_points += field.points %>
+      <% max_points += field.points.to_i %>
         <tr>
           <td><%= field.name %></td>
           <td><%= grading_field.score %></td>
