@@ -15,7 +15,7 @@
       <% @student_labs.each do |sl| %>
         <tr>
           <td><%= sl.lab.name %></td>
-          <td><%= sl.github_link %></td>
+          <td><a href="<%= sl.github_link %>"><%= sl.github_link %></a></td>
           <td>
             <% if sl.complete %>
               <span class="label label-primary">Complete</span>
@@ -59,4 +59,6 @@
       <%= f.submit "Submit", :class=>"btn-primary btn" %>
     </div>
   <% end %>
+  <h4>Lab Feedback</h4>
+  <p>Click <a href="https://docs.google.com/forms/d/1pa_ZL1lnAj_RbZu0a1ppbNeeO2ynbggqhCy4yM62sj0/viewform">here</a> to give feedback!</p>
 </div>
