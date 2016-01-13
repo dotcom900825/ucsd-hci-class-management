@@ -40,6 +40,8 @@ task :sync_students_with_list => :environment do
     if Student.find_by(:pid=>student.pid).nil?
       puts "ADDED: #{student.name}"
       Student.create(:email=>student.email, :name=>student.name, :pid=>student.pid, :password=>student.pid[1..-1], :password_confirmation=>student.pid[1..-1], :college=>student.college, :major=>student.major, :year=>student.level)
+    else
+      Student.find_by(:pid=>student.pid).update(:name=>student.name, :college=>student.college, :major=>student.major, :year=>student.level)
     end
   end
 end

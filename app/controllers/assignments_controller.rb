@@ -29,7 +29,7 @@ class AssignmentsController < ApplicationController
     result[:assignment_name] = @assignment.name
     result[:criteria] = []
     @assignment.rubric_fields.each do |rubric|
-      result[:criteria] << {:title=>rubric.name}
+      result[:criteria] << {:title=>rubric.name, :nope=>rubric.nope, :weak=>rubric.weak, :proficiency=>rubric.proficiency, :mastery=>rubric.mastery, :point=>rubric.point}
     end
     render json: result
   end

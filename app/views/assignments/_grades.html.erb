@@ -3,35 +3,41 @@
       <tr>
         <th>Criteria</th>
         <th>Score</th>
+        <th>Max Points</th>
       </tr>
     </thead>
     <tbody>
+      <% max_points = 0 %>
       <% @assignment.rubric_fields.each do |field| %>
       <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
+      <% max_points += field.points %>
         <tr>
           <td><%= field.name %></td>
           <td><%= grading_field.score %></td>
+          <td><%= field.points %></td>
         </tr>
       <% end %>
       <tr>
         <td>Self Assessment Grade</td>
         <td><%= @submission.self_assessment_grade %></td>
+        <td></td>
       </tr>
       <tr>
         <td>TA Grade</td>
         <td><%= @submission.ta_grade %></td>
+        <td></td>
       </tr>
       <tr>
         <td>Final Grade</td>
         <td><%= @submission.final_grade %></td>
+        <td><%= max_points %></td>
       </tr>
       <tr>
         <td>Self Assessment Points</td>
         <td><%= @submission.sa_points%></td>
-      </tr>
-      <tr>
-        <strong>TA's Comment:</strong>
-        <p><%= @submission.comment %></p>
+        <td></td>
       </tr>
     </tbody>
   </table>
+  <strong>TA's Comment:</strong>
+  <p><%= @submission.comment %></p>
