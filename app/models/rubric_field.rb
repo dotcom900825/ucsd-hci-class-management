@@ -11,4 +11,5 @@
 
 class RubricField < ActiveRecord::Base
   belongs_to :assignment
+  has_many :rubric_field_items
 end
