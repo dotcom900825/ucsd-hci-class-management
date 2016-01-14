@@ -1,7 +1,6 @@
 require "csv"
 
 task :load_student_labs, [:lab] => :environment do |t, args|
-  puts args
   CSV.foreach(File.expand_path("../student_lab_#{args[:lab]}.csv", __FILE__)) do |row|
     pid = row[0].strip
     github_link = row[1].strip
