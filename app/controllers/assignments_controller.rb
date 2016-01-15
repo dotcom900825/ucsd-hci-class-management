@@ -30,10 +30,12 @@ class AssignmentsController < ApplicationController
     result[:criteria] = []
     @assignment.rubric_fields.each do |rubric|
       items = []
+      total = 0
       rubric.rubric_field_items.order(:item_position).each do |field_item|
-        items << {:name=>field_item.name, :point=>field_item.pont}
+        items << {:name=>field_item.name, :point=>field_item.point}
+        total += field_item.point
       end
-      result[:criteria] << {:group=>rubric.name, :items=>items}
+      result[:criteria] << {:group=>rubric.name, :items=>items, :total=>total}
     end
     render json: result
   end

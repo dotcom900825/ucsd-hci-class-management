@@ -9,7 +9,7 @@ task :load_rubric_field_items, [:assignment] => :environment do |t, args|
     point = row[2].strip
 
     field = rubric_fields.find_by(:name=>field_name)
-    field = rubric_fields.create(:name=>field_name) if field.nil?
+    next if field.nil?
 
     item = field.rubric_field_items.find_by(:name=>item_name)
     item = field.rubric_field_items.create(:name=>item_name, :point=>point.to_i) if item.nil?
