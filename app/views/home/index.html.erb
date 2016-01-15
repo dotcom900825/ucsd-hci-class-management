@@ -48,11 +48,11 @@
           <tbody>
             <tr>
               <td><%= link_to "Assignments", :assignments %>:</td>
-              <td><%= total - current_user.student_labs.where(:complete=>true).count - current_user.student_quizzes.sum(:score) %></td>
+              <td><%= total - current_user.student_labs.where(:complete=>true).count*2 - current_user.student_quizzes.sum(:score) %></td>
             </tr>
             <tr>
               <td><%= link_to "Labs", :student_labs %>:</td>
-              <td><%= current_user.student_labs.where(:complete=>true).count %></td>
+              <td><%= current_user.student_labs.where(:complete=>true).count*2 %></td>
             </tr>
             <tr>
               <td><%= link_to "Quizzes", :student_quizzes %>:</td>
