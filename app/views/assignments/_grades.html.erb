@@ -2,7 +2,7 @@
     <thead>
       <tr>
         <th>Criteria</th>
-        <th></th>
+        <% if @assignment.id != 1 %><th></th><% end %>
         <th>Score</th>
         <th>Max Points</th>
       </tr>
@@ -52,13 +52,13 @@
       </tr>
       <tr>
         <td>TA Grade</td>
-        <td></td>
+        <% if @assignment.id != 1 %><td></td><% end %>
         <td><%= @submission.ta_grade %></td>
         <td></td>
       </tr>
       <tr>
         <td>Final Grade</td>
-        <td></td>
+        <% if @assignment.id != 1 %><td></td><% end %>
         <td><%= @submission.final_grade %></td>
         <% if @assignment.id == 1 %>
           <td></td>
@@ -68,7 +68,7 @@
       </tr>
       <tr>
         <td>Self Assessment Points</td>
-        <td></td>
+        <% if @assignment.id != 1 %><td></td><% end %>
         <td><%= @submission.sa_points%></td>
         <td></td>
       </tr>
