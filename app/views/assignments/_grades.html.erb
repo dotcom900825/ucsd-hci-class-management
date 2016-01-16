@@ -2,6 +2,7 @@
     <thead>
       <tr>
         <th>Criteria</th>
+        <th></th>
         <th>Score</th>
         <th>Max Points</th>
       </tr>
@@ -38,8 +39,8 @@
                   </li>
                 <% end %>
               </ul>
-              <%= grading_field.score %>
             </td>
+            <td><%= grading_field.score %></td>
             <td><%= field.rubric_field_items.sum(:point) %></td>
           </tr>
         <% end %>
@@ -51,20 +52,23 @@
       </tr>
       <tr>
         <td>TA Grade</td>
+        <td></td>
         <td><%= @submission.ta_grade %></td>
         <td></td>
       </tr>
       <tr>
         <td>Final Grade</td>
+        <td></td>
         <td><%= @submission.final_grade %></td>
         <% if @assignment.id == 1 %>
-        <td></td>
+          <td></td>
         <% else %>
-        <td><%= max_points %></td>
+          <td><%= max_points %></td>
         <% end %>
       </tr>
       <tr>
         <td>Self Assessment Points</td>
+        <td></td>
         <td><%= @submission.sa_points%></td>
         <td></td>
       </tr>
