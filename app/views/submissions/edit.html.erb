@@ -25,8 +25,21 @@
           <td></td>
           <%= f.fields_for :grading_fields, grading_field do |builder|%>
           <td>
+            <ul style='list-style: none;'>
+              <% field.rubric_field_items.each_with_index do |item, index| %>
+                <li>
+                  <div class='form-group'>
+                    <label>
+                      <%= check_box_tag "rubric_field_item_#{item.id}", '', index < builder.object.score.to_i, class: 'rubric_field_item' %>
+                      &nbsp;
+                      <%= item.name %>
+                    </label>
+                  </div>
+                </li>
+              <% end %>
+            </ul>
             <div class='form-group'>
-              <%= builder.number_field :score, :min=>0, :max=>10, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
+              <%= builder.hidden_field :score, :class=>"form-control number_field"%>
             </div>
           </td>
           <%= builder.hidden_field :rubric_field_id%>

@@ -24,7 +24,22 @@
         <% max_points += field.rubric_field_items.sum(:point) %>
           <tr>
             <td><%= field.name %></td>
-            <td><%= grading_field.score %></td>
+            <td>
+              <ul style='list-style: none;'>
+                <% field.rubric_field_items.each_with_index do |item, index| %>
+                  <li>
+                    <div class='form-group'>
+                      <label>
+                        <%= check_box_tag "rubric_field_item_", '', index < grading_field.score.to_i, disabled: true %>
+                        &nbsp;
+                        <%= item.name %>
+                      </label>
+                    </div>
+                  </li>
+                <% end %>
+              </ul>
+              <%= grading_field.score %>
+            </td>
             <td><%= field.rubric_field_items.sum(:point) %></td>
           </tr>
         <% end %>
