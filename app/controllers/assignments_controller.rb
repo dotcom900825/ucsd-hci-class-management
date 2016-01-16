@@ -28,7 +28,7 @@ class AssignmentsController < ApplicationController
     @assignment = Assignment.find(params[:id])
     result[:assignment_name] = @assignment.name
     result[:criteria] = []
-    @assignment.rubric_fields.each do |rubric|
+    @assignment.rubric_fields.order(:id).each do |rubric|
       items = []
       total = 0
       rubric.rubric_field_items.order(:item_position).each do |field_item|

@@ -15,7 +15,7 @@
     </thead>
     <%= form_for @submission, :method=>:patch do |f|%>
     <tbody>
-      <% @assignment.rubric_fields.each do |field|%>
+      <% @assignment.rubric_fields.order(:id).each do |field|%>
         <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first%>
         <% if grading_field.nil? %>
           <% grading_field = @submission.grading_fields.new(rubric_field_id: field.id) %>
