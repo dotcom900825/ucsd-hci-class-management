@@ -20,6 +20,7 @@ class SubmissionsController < ApplicationController
   def update
     @submission = Submission.find(params[:id])
     @submission.update(submission_params)
+
     flash[:success] = "Update success"
     redirect_to :back
   end
@@ -34,5 +35,4 @@ class SubmissionsController < ApplicationController
   def submission_params
     params.require(:submission).permit(:self_assessment_grade, :comment, :ta_grade, :sa_points, :final_grade, :attachment, :assignment_id, :student_id, :grading_fields_attributes=>[:id, :score, :comment, :rubric_field_id])
   end
-
 end
