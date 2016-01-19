@@ -30,7 +30,11 @@
                 <li>
                   <div class='form-group'>
                     <label>
-                      <%= check_box_tag "submission[grading_fields_attributes][#{builder.options[:child_index]}][selected_rubric_items][]", item.id, grading_field.selected_rubric_items.include?(item.id.to_s), class: 'rubric_field_item' %>
+                      <% if grading_field.selected_rubric_items.present? %>
+                        <%= check_box_tag "submission[grading_fields_attributes][#{builder.options[:child_index]}][selected_rubric_items][]", item.id, grading_field.selected_rubric_items.include?(item.id.to_s), class: 'rubric_field_item' %>
+                      <% else %>
+                        <%= check_box_tag "submission[grading_fields_attributes][#{builder.options[:child_index]}][selected_rubric_items][]", item.id, false, class: 'rubric_field_item' %>
+                      <% end %>
                       &nbsp;
                       <%= item.name %>
                     </label>

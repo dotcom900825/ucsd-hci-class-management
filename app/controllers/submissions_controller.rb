@@ -19,6 +19,7 @@ class SubmissionsController < ApplicationController
 
   def update
     @submission = Submission.find(params[:id])
+    @submission.grading_fields.update_all(:selected_rubric_items=>nil)
     @submission.update(submission_params)
 
     flash[:success] = "Update success"
