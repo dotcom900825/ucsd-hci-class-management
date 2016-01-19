@@ -12,13 +12,14 @@ task :load_sa, [:assignment] => :environment do |t, args|
         if submission.final_grade > 0
           ta_grade = submission.ta_grade
           if (ta_grade - sa_grade).abs <= 2
-            submission.sa_point = 1
+            submission.sa_points = 1
             submission.final_grade = (ta_grade + sa_grade)/2
           else
-            submission.sa_point = 0
+            submission.sa_points = 0
             submission.final_grade = ta_grade
           end
         end
+        submission.save
       end
     end
   end
