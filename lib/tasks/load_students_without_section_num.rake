@@ -27,7 +27,7 @@ task :load_students_without_section_num => :environment do
     student_list << StudentObj.new(nil, pid, name, college, major, level, email)
   end
 
-  students_list.each do |student|
+  student_list.each do |student|
     stu = Student.find_by(:pid=>student.pid)
     Student.create(:email=>student.email, :name=>student.name, :pid=>student.pid, :password=>student.pid[1..-1], :password_confirmation=>student.pid[1..-1], :college=>student.college, :major=>student.major, :year=>student.level) if stu.nil?
   end
