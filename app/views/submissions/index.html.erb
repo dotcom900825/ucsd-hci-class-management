@@ -5,7 +5,7 @@
     <thead>
       <tr>
         <th>Students</th>
-        <% @assignment.rubric_fields.each do |field|%>
+        <% @assignment.rubric_fields.order(:id).each do |field|%>
           <th><%= field.name%></th>
         <% end %>
         <th>Self Assessment Grade</th>
@@ -30,7 +30,7 @@
               </td>
             <% end %>
           <% else %>
-            <% @assignment.rubric_fields.each do |field|%>
+            <% @assignment.rubric_fields.order(:id).each do |field|%>
               <td>
                 &nbsp;
               </td>
