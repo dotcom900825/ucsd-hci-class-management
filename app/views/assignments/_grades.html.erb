@@ -31,7 +31,7 @@
                   <li>
                     <div class='form-group'>
                       <label>
-                        <%= check_box_tag "rubric_field_item_", '', index < grading_field.score.to_i, disabled: true %>
+                        <%= check_box_tag "rubric_field_item_", '', grading_field.selected_rubric_items.include?(item.id.to_s), disabled: true %>
                         &nbsp;
                         <%= item.name %>
                       </label>

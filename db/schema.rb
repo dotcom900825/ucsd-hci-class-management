@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160112234801) do
+ActiveRecord::Schema.define(version: 20160119085153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 20160112234801) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "rubric_field_id"
+    t.string   "selected_rubric_items"
   end
 
   create_table "labs", force: true do |t|
@@ -45,6 +46,15 @@ ActiveRecord::Schema.define(version: 20160112234801) do
 
   create_table "quizzes", force: true do |t|
     t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "rubric_field_items", force: true do |t|
+    t.string   "name"
+    t.integer  "rubric_field_id"
+    t.integer  "point",           default: 1
+    t.integer  "item_position"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -75,6 +85,7 @@ ActiveRecord::Schema.define(version: 20160112234801) do
     t.datetime "updated_at"
     t.text     "github_link"
     t.boolean  "stretch_goal", default: false
+    t.text     "heroku_link"
   end
 
   add_index "student_labs", ["student_id", "lab_id"], name: "index_student_labs_on_student_id_and_lab_id", unique: true, using: :btree
@@ -82,7 +93,7 @@ ActiveRecord::Schema.define(version: 20160112234801) do
   create_table "student_quizzes", force: true do |t|
     t.integer  "student_id"
     t.integer  "quiz_id"
-    t.integer  "score"
+    t.float    "score",      default: 0.0
     t.datetime "created_at"
     t.datetime "updated_at"
   end
