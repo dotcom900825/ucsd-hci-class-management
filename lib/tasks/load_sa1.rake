@@ -6,7 +6,7 @@ task :load_sa1 => :environment do
     student = Student.find_by(:pid=>pid)
     if student.present?
       submission = student.submissions.find_by(:assignment_id=>1)
-      submission.sa_point = 1 if submission
+      submission.update(:sa_points=>1) if submission.present?
     end
   end
 end
