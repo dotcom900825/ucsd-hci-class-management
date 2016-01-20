@@ -7,8 +7,13 @@ class SubmissionsController < ApplicationController
   end
 
   def assignments
-    @assignments = Assignment.all.order("created_at ASC")
-    @studios = current_user.studios
+    if current_user
+      @assignments = Assignment.all.order("created_at ASC")
+      @studios = current_user.studios
+    else
+      flash[:alert] = "Login in required"
+      redirect_to root_path
+    end
   end
 
   def create
