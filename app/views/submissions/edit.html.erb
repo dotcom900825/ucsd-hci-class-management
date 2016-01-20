@@ -24,6 +24,13 @@
           <td><%= field.name %></td>
           <td></td>
           <%= f.fields_for :grading_fields, grading_field do |builder|%>
+          <% if @assignment.id == 1 %>
+          <td>
+            <div class='form-group'>
+              <%= builder.number_field :score, :min=>0, :max=>10, :class=>"form-control input-sm number_field", :placeholder=>"score"%>
+            </div>
+          </td>
+          <% else %>
           <td>
             <ul style='list-style: none;'>
               <% field.rubric_field_items.each_with_index do |item, index| %>
@@ -46,26 +53,27 @@
               <%= builder.hidden_field :score, :class=>"form-control number_field"%>
             </div>
           </td>
+          <% end %>
           <%= builder.hidden_field :rubric_field_id%>
           <% end %>
         </tr>
       <% end %>
-      <tr>
+      <!-- <tr>
         <td>Self Assessment Grade</td>
         <td></td>
         <td><%= f.number_field :self_assessment_grade, :class=>"form-control input-sm self_grade"%></td>
-      </tr>
+      </tr> -->
       <tr>
         <td>TA Grade</td>
         <td></td>
         <td><%= f.number_field :ta_grade, :class=>"form-control input-sm total_grade"%></td>
       </tr>
-      <tr>
+      <!--<tr>
         <td>Self Assessment points</td>
         <td></td>
         <td><%= f.number_field :sa_points, :class=>"form-control input-sm sa_points"%></td>
       </tr>
-      <tr>
+      <tr>-->
         <td>Final Grade</td>
         <td></td>
         <td><%= f.number_field :final_grade, :class=>"form-control input-sm final_grade"%></td>

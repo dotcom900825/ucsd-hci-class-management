@@ -49,7 +49,7 @@ $(document).ready(function(){
   }
 
   if($(".edit_submission").length > 0){
-    $('.self_grade').change(pointCalculator)
+    $('.self_grade, .number_field').change(pointCalculator)
   }
 
   $('.rubric_field_item').change(function(){

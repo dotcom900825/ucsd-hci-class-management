@@ -2,21 +2,25 @@
     <thead>
       <tr>
         <th>Criteria</th>
-        <% if @assignment.id != 1 %><th></th><% end %>
+        <% if @assignment.id != 1 && @assignment.id != 2 %><th></th><% end %>
         <th>Score</th>
         <th>Max Points</th>
       </tr>
     </thead>
     <tbody>
       <% max_points = 0 %>
-      <% if @assignment.id == 1 %>
+      <% if @assignment.id == 1 || @assignment.id == 2 %>
         <% @assignment.rubric_fields.each do |field| %>
         <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
         <% max_points += field.points.to_i %>
           <tr>
             <td><%= field.name %></td>
             <td><%= grading_field.score %></td>
-            <td></td>
+            <% if @assignment.id == 2 %>
+              <td><%= field.rubric_field_items.sum(:point) %></td>
+            <% else %>
+              <td></td>
+            <% end %>
           </tr>
         <% end %>
       <% else %>
@@ -51,19 +55,19 @@
       <% end %>
       <tr>
         <td>Self Assessment Grade</td>
-        <% if @assignment.id != 1 %><td></td><% end %>
+        <% if @assignment.id != 1 && @assignment.id != 2 %><td></td><% end %>
         <td><%= @submission.self_assessment_grade %></td>
         <td></td>
       </tr>
       <tr>
         <td>TA Grade</td>
-        <% if @assignment.id != 1 %><td></td><% end %>
+        <% if @assignment.id != 1 && @assignment.id != 2 %><td></td><% end %>
         <td><%= @submission.ta_grade %></td>
         <td></td>
       </tr>
       <tr>
         <td>Final Grade</td>
-        <% if @assignment.id != 1 %><td></td><% end %>
+        <% if @assignment.id != 1 && @assignment.id != 2 %><td></td><% end %>
         <td><%= @submission.final_grade %></td>
         <% if @assignment.id == 1 %>
           <td></td>
@@ -73,7 +77,7 @@
       </tr>
       <tr>
         <td>Self Assessment Points</td>
-        <% if @assignment.id != 1 %><td></td><% end %>
+        <% if @assignment.id != 1 && @assignment.id != 2 %><td></td><% end %>
         <td><%= @submission.sa_points%></td>
         <td></td>
       </tr>
