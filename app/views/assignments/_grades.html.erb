@@ -12,7 +12,7 @@
       <% if @assignment.id == 1 || @assignment.id == 2 %>
         <% @assignment.rubric_fields.each do |field| %>
         <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
-        <% max_points += field.points.to_i %>
+        <% max_points += field.rubric_field_items.sum(:point) %>
           <tr>
             <td><%= field.name %></td>
             <td><%= grading_field.score %></td>
@@ -37,7 +37,7 @@
                       <label>
                         <%= check_box_tag "rubric_field_item_", '', grading_field.selected_rubric_items.include?(item.id.to_s), disabled: true %>
                         &nbsp;
-                        <%= item.name %>
+                        <%= raw item.name %>
                       </label>
                     </div>
                   </li>
