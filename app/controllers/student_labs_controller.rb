@@ -13,6 +13,7 @@ class StudentLabsController < ApplicationController
     if Time.now > Lab.find(student_lab_params[:lab_id]).deadline
       flash[:error] = "Your submission has passed lab's due date."
       redirect_to student_labs_path
+      return
     end
     @student_lab = current_user.student_labs.find_by(:lab_id=>student_lab_params[:lab_id])
     if @student_lab.present?
