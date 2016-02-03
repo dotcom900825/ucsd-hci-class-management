@@ -32,7 +32,7 @@ class AssignmentsController < ApplicationController
       items = []
       total = 0
       rubric.rubric_field_items.order(:item_position).each do |field_item|
-        items << {:name=>field_item.name, :point=>field_item.point}
+        items << {:name=>field_item.name, :point=>field_item.point, :item_position=>field_item.item_position}
         total += field_item.point
       end
       result[:criteria] << {:group=>rubric.name, :items=>items, :total=>total}
@@ -165,7 +165,7 @@ class AssignmentsController < ApplicationController
     end
 
     def check_permission
-      if current_user && current_user.is_ta?
+      if current_user && !current_user.is_ta?
         flash[:notice] = "Permission denied"
         redirect_to root_url and return
       end
