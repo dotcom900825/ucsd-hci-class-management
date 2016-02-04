@@ -81,7 +81,8 @@ class AssignmentsController < ApplicationController
 
   def submissions_within
     @studio = Studio.find(params[:studio_id])
-    @submissions = @assignment.submissions.joins(:student).where(:users=>{:studio_id=>@studio.id}).where("final_grade > 0")
+    # @submissions = @assignment.submissions.joins(:student).where(:users=>{:studio_id=>@studio.id}).where("final_grade > 0")
+    @submissions = @assignment.submissions.joins(:student).where(:users=>{:studio_id=>@studio.id})
   end
 
   def score_overview

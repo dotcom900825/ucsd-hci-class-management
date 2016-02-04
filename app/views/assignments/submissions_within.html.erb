@@ -9,6 +9,7 @@
     </thead>
 
     <tbody>
+      <% if @assignment.due_time.end_of_day + 4.hour + 30.minutes <= Time.zone.now %>
       <% @submissions.each do |submission| %>
         <tr>
           <td>
@@ -18,6 +19,7 @@
             <%= link_to "Link", submission.attachment.url%>
           </td>
         </tr>
+      <% end %>
       <% end %>
     </tbody>
   </table>
