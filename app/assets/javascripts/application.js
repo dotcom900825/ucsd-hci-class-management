@@ -25,6 +25,7 @@
 
 $(document).ready(function(){
   $(".select").select2();
+  $("#submit_lab").prop("disabled",true);
 
   var pointCalculator = function(){
     var total = 0;
@@ -62,6 +63,11 @@ $(document).ready(function(){
       score_input.val(currentValue - 1);
     }
     pointCalculator();
-  })
+  });
+
+  $("#student_lab_certified").change(function() {
+    $("#submit_lab").prop("disabled",!$(this).is(":checked"));
+  });
+
 })
 

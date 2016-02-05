@@ -40,6 +40,7 @@
 
   <%= form_for current_user.student_labs.new do |f| %>
     <h4>Submit Lab</h4>
+    <!-- <p>Your Tracked IP Address is: <b><%= @remote_ip %></b></p> -->
     <div class="form-group">
       <%= f.label 'Please select the lab'%>
       <%= f.select :lab_id, options_from_collection_for_select(Lab.where.not(id: @hidden_labs).order(:id), "id", "name"), :class=>"form-control select select-primary"%>
@@ -61,10 +62,16 @@
         &nbsp;
         Stretch goal finished
       </label>
+      <br>
+      <label>
+        <%= f.check_box :certified %>
+        &nbsp;
+        <span style="color:red">*</span> I certify that this work is my own &nbsp;<b>(required)</b>
+      </label>
     </div>
 
     <div class="form-group">
-      <%= f.submit "Submit", :class=>"btn-primary btn" %>
+      <%= f.submit "Submit", :class=>"btn-primary btn", :id=>"submit_lab" %>
     </div>
   <% end %>
   <h4>Lab Feedback</h4>
