@@ -33,6 +33,35 @@ class HomeController < ApplicationController
     @student_quizzes = StudentQuiz.where(:quiz_id=>params[:id])
   end
 
+  def staff_progress
+    if current_user.present? && current_user.is_ta?
+      @result = {}
+      ta_list = Ta.order(:name)
+      ta_list.each do |ta|
+        next if ta.email == "bsoe@ucsd.edu" || ta.email == "srk@ucsd.edu"
+        @result[ta] = []
+        students = []
+        ta.studios.each { |studio| students = students + studio.students }
+        Assignment.order(:id).each do |assignment|
+          submission_count = {}
+          submission_count[:assignment] = assignment
+          submission_count[:total] = 0
+          submission_count[:graded] = 0
+          Submission.where(:assignment=>assignment).each do |submission|
+            if students.include?(submission.student)
+              submission_count[:total] += 1 
+              submission_count[:graded] += 1 unless submission.grading_fields.empty?
+            end
+          end
+          @result[ta] << submission_count
+        end
+      end
+    else
+      flash[:notice] = "Permission denied"
+      redirect_to root_url and return
+    end
+  end
+
   def lab_overview
     if current_user && current_user.is_ta?
       @student_hash = {}

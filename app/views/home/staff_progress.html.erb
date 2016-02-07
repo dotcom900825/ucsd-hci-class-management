@@ -1,0 +1,26 @@
+<div class='container'>
+  <h2>Staff Progress Report</h2>
+  <% @result.each do |ta, submissions| %>
+    <h3><%= ta.name %></h3>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Assignment Name</th>
+          <th>Graded</th>
+          <th>Total Submitted</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% submissions.each do |submission| %>
+        <tr>
+          <td><%= submission[:assignment].id %></td>
+          <td><%= submission[:assignment].name %></td>
+          <td><%= submission[:graded] %></td>
+          <td><%= submission[:total] %></td>
+        </tr>
+        <% end %>
+      </tbody>
+    </table>
+  <% end %>
+</div>

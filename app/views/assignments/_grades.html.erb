@@ -26,7 +26,7 @@
       <% else %>
         <% @assignment.rubric_fields.order(:id).each do |field| %>
         <% grading_field = @submission.grading_fields.where(rubric_field_id: field.id).first %>
-        <% max_points += field.rubric_field_items.sum(:point) %>
+        <% max_points += field.rubric_field_items.where(:extra_credit=>false).sum(:point) %>
           <tr>
             <td><%= field.name %></td>
             <td>
