@@ -56,7 +56,11 @@
             </tr>
             <tr>
               <td><%= link_to "Quizzes", :student_quizzes %>:</td>
-              <td><%= current_user.student_quizzes.sum(:score) %></td>
+              <td>
+                <% quiz_sum = current_user.student_quizzes.sum(:score) %>
+                <% quiz_sum -= current_user.student_quizzes.minimum(:score) if current_user.student_quizzes.length > 1 %>
+                <%= quiz_sum %> &nbsp;&nbsp;<span style="color: #95a5a6">(lowest dropped)</span>
+              </td>
             </tr>
           </tbody>
         </table>
