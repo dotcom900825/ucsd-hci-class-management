@@ -133,6 +133,7 @@ class HomeController < ApplicationController
 
       score_hash[:lab] = (student.student_labs.where(:complete=>true).count * 2)
       score_hash[:quiz] = student.student_quizzes.sum(:score)
+      score_hash[:quiz] -= student.student_quizzes.minimum(:score) if student.student_quizzes.length > 1
       score_hash[:pid] = student.pid[4..-1]
 
       [:a1, :a2, :a3, :a4, :a5, :a6, :a7, :a8, :a9, :a10, :sa, :lab, :quiz, :extra_credit, :lect_participation, :studio_participation].each do |field|
@@ -204,6 +205,7 @@ class HomeController < ApplicationController
 
       score_hash[:lab] = (student.student_labs.where(:complete=>true).count * 2)
       score_hash[:quiz] = student.student_quizzes.sum(:score)
+      score_hash[:quiz] -= student.student_quizzes.minimum(:score) if student.student_quizzes.length > 1
       score_hash[:pid] = student.pid[4..-1]
       score_hash[:name] = student.name
 
