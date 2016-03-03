@@ -91,7 +91,7 @@ class HomeController < ApplicationController
     
     @final_score = []
     @students.each do |student|
-      score_hash = {:pid=>"", :a1=>0, :a2=>0, :a3=>0, :a4=>0, :a5=>0, :a6=>0, :a7=>0, :a8=>0, :a9=>0, :a10=>0, :sa=>0, :lab=>0, :quiz=>0, :extra_credit=>0, :lect_participation=>0, :studio_participation=>0, :total=>0}
+      score_hash = {:pid=>"", :total=>0, :a1=>0, :a2=>0, :a3=>0, :a4=>0, :a5=>0, :a6=>0, :a7=>0, :a8=>0, :a9=>0, :a10=>0, :sa=>0, :lab=>0, :quiz=>0, :extra_credit=>0, :lect_participation=>0, :studio_participation=>0}
       
       [1, 2, 4].each do |aid|
         score_hash["a#{aid}".to_sym] = student.submissions.find_by(:assignment_id=>aid).try(:final_grade).to_i
@@ -163,7 +163,7 @@ class HomeController < ApplicationController
     
     @final_score = []
     @students.each do |student|
-      score_hash = {:name=>"", :pid=>"", :a1=>0, :a2=>0, :a3=>0, :a4=>0, :a5=>0, :a6=>0, :a7=>0, :a8=>0, :a9=>0, :a10=>0, :sa=>0, :lab=>0, :quiz=>0, :extra_credit=>0, :lect_participation=>0, :studio_participation=>0, :total=>0}
+      score_hash = {:name=>"", :pid=>"", :total=>0, :a1=>0, :a2=>0, :a3=>0, :a4=>0, :a5=>0, :a6=>0, :a7=>0, :a8=>0, :a9=>0, :a10=>0, :sa=>0, :lab=>0, :quiz=>0, :extra_credit=>0, :lect_participation=>0, :studio_participation=>0}
       
       [1, 2, 4].each do |aid|
         score_hash["a#{aid}".to_sym] = student.submissions.find_by(:assignment_id=>aid).try(:final_grade).to_i
