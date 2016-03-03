@@ -24,7 +24,6 @@ class StudentLabsController < ApplicationController
     else
       @student_lab = current_user.student_labs.create(student_lab_params.merge(complete: true, :ip=>request.remote_ip))
     end
-    # @student_lab.update(:ip=>request.remote_ip)
     flash[:success] = "Lab Submission success. Your IP was #{request.remote_ip}."
     redirect_to student_labs_path
   end

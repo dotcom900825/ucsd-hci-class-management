@@ -1,7 +1,9 @@
 class HomeController < ApplicationController
   def index
-    if current_user.present?
+    if current_user.present? && !current_user.is_ta?
       @ranking = {}
+      @possible_scores = get_possible_points()
+      # @possible_scores[:assignment] = 0
       @grades = []
       Student.all.each do |student|
         @ranking[student] = {
@@ -16,11 +18,21 @@ class HomeController < ApplicationController
           submission = find_team_submission(assignment, student) if submission.nil?
           @ranking[student][:assignments] << submission
           @ranking[student][:total] += submission.final_grade unless submission.nil?
+          if submission && submission.grading_fields.size > 0
+            assignment.rubric_fields.each do |rubric_field|
+              rubric_field.rubric_field_items.each do |item|
+                @possible_scores[:assignment] += item.point unless item.extra_credit
+              end
+            end
+          end
         end
         @ranking[student][:total] += (@ranking[student][:labs].where(:complete=>true).count * 2)
         @ranking[student][:total] += @ranking[student][:quizzes].sum(:score)
         @grades << @ranking[student][:total]
       end
+      @possible_scores[:total] = @possible_scores[:assignment] + @possible_scores[:quiz] + @possible_scores[:lab]
+      puts "\nHERE"
+      puts @possible_scores
       @grades = @grades.uniq.sort { |x,y| y <=> x }
     end
   end
@@ -225,5 +237,22 @@ class HomeController < ApplicationController
   def find_team_submission(assignment, student=current_user)
     return nil unless student.team && assignment.team_based
     Submission.where(student: student.team.students, assignment: assignment).order(:final_grade).last
+  end
+  def get_possible_points()
+    possible_scores = {}
+    # possible_scores[:assignment] = 0
+    # Assignment.all.order("created_at ASC").each do |assignment|
+    #   if assignment.due_time.end_of_day + 24.hour > Time.zone.now
+    #     assignment.rubric_fields.each do |rubric_field|
+    #       rubric_field.rubric_field_items.each do |item|
+    #         possible_scores[:assignment] += item.point unless item.extra_credit
+    #       end
+    #     end
+    #   end
+    # end
+    possible_scores[:assignment] = 14 # add hardcoded sum for assignment 1
+    possible_scores[:quiz] = Quiz.all.length > 1 ? (Quiz.all.length-1) * 10 : (Quiz.all.length) * 10
+    possible_scores[:lab] = (Lab.all.length) * 2
+    possible_scores
   end
 end
