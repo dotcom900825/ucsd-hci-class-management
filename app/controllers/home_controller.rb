@@ -3,7 +3,6 @@ class HomeController < ApplicationController
     if current_user.present? && !current_user.is_ta?
       @ranking = {}
       @possible_scores = get_possible_points()
-      # @possible_scores[:assignment] = 0
       @grades = []
       Student.all.each do |student|
         @ranking[student] = {
@@ -31,8 +30,6 @@ class HomeController < ApplicationController
         @grades << @ranking[student][:total]
       end
       @possible_scores[:total] = @possible_scores[:assignment] + @possible_scores[:quiz] + @possible_scores[:lab]
-      puts "\nHERE"
-      puts @possible_scores
       @grades = @grades.uniq.sort { |x,y| y <=> x }
     end
   end
@@ -240,16 +237,6 @@ class HomeController < ApplicationController
   end
   def get_possible_points()
     possible_scores = {}
-    # possible_scores[:assignment] = 0
-    # Assignment.all.order("created_at ASC").each do |assignment|
-    #   if assignment.due_time.end_of_day + 24.hour > Time.zone.now
-    #     assignment.rubric_fields.each do |rubric_field|
-    #       rubric_field.rubric_field_items.each do |item|
-    #         possible_scores[:assignment] += item.point unless item.extra_credit
-    #       end
-    #     end
-    #   end
-    # end
     possible_scores[:assignment] = 14 # add hardcoded sum for assignment 1
     possible_scores[:quiz] = Quiz.all.length > 1 ? (Quiz.all.length-1) * 10 : (Quiz.all.length) * 10
     possible_scores[:lab] = (Lab.all.length) * 2
