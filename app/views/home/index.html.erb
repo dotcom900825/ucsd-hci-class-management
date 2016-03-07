@@ -25,7 +25,7 @@
         <table class="table summary">
           <tbody>
             <tr><td>Overall Rank: </td><td><%= @grades.empty? ? "N/A" : @grades.index(total)+1 %></td></tr>
-            <tr><td>Total Score: </td><td><%= total %></td></tr>
+            <tr><td>Total Score: </td><td><%= total %> out of <%= @possible_scores[:total] %></td></tr>
             <tr><td>Team Members: </td>
               <td>
                 <% if team.present? %>
@@ -48,18 +48,18 @@
           <tbody>
             <tr>
               <td><%= link_to "Assignments", :assignments %>:</td>
-              <td><%= total - current_user.student_labs.where(:complete=>true).count*2 - current_user.student_quizzes.sum(:score) %></td>
+              <td><%= total - current_user.student_labs.where(:complete=>true).count*2 - current_user.student_quizzes.sum(:score) %> out of <%= @possible_scores[:assignment] %></td>
             </tr>
             <tr>
               <td><%= link_to "Labs", :student_labs %>:</td>
-              <td><%= current_user.student_labs.where(:complete=>true).count*2 %></td>
+              <td><%= current_user.student_labs.where(:complete=>true).count*2 %> out of <%= @possible_scores[:lab] %></td>
             </tr>
             <tr>
               <td><%= link_to "Quizzes", :student_quizzes %>:</td>
               <td>
                 <% quiz_sum = current_user.student_quizzes.sum(:score) %>
                 <% quiz_sum -= current_user.student_quizzes.minimum(:score) if current_user.student_quizzes.length > 1 %>
-                <%= quiz_sum %> &nbsp;&nbsp;<span style="color: #95a5a6">(lowest dropped)</span>
+                <%= quiz_sum %> out of <%= @possible_scores[:quiz] %>
               </td>
             </tr>
           </tbody>

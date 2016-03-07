@@ -13,7 +13,7 @@
     </thead>
 
     <tbody>
-      <% @student_labs.order(:id).each do |sl| %>
+      <% @student_labs.order(:lab_id).each do |sl| %>
         <tr>
           <% next if sl.lab.nil? %>
           <td><%= sl.lab.name %></td>
