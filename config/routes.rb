@@ -37,7 +37,7 @@ Rails.application.routes.draw do
 
   get "quiz_overview/:id" => "home#quiz"
 
-  get "staff_progress" => "home#staff_progress"
+  get "dashboard" => "home#staff_progress"
 
   get "api/assignment/:id" => "assignments#api_data"
 

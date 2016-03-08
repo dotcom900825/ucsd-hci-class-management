@@ -1,26 +1,49 @@
 <div class='container'>
-  <h2>Staff Progress Report</h2>
-  <% @result.each do |ta, submissions| %>
-    <h3><%= ta.name %></h3>
-    <table class="table">
-      <thead>
-        <tr>
-          <th>#</th>
-          <th>Assignment Name</th>
-          <th>Graded</th>
-          <th>Total Submitted</th>
-        </tr>
-      </thead>
-      <tbody>
-        <% submissions.each do |submission| %>
-        <tr>
-          <td><%= submission[:assignment].id %></td>
-          <td><%= submission[:assignment].name %></td>
-          <td><%= submission[:graded] %></td>
-          <td><%= submission[:total] %></td>
-        </tr>
-        <% end %>
-      </tbody>
-    </table>
-  <% end %>
+  <h3>Histogram of Total Scores</h3>
+  <div id="chart_div" style="width: 100%; height: 500px;"></div>
 </div>
+
+<div class='container'>
+  <h3>Staff Progress Report</h3>
+  <ul>
+  <li><b>Note: </b>The first line for each cell is number of assignments graded out of assignments submitted.</li>
+  <li><b>Note: </b>The second line for each cell is the average of graded assignment.</li>
+  </ul>
+  <table class="table">
+    <thead>
+      <th></th>
+      <% (1..10).each do |num| %>
+        <th>A<%= num %></th>
+      <% end %>
+    </thead>
+    <tbody>
+      <% @average_by_staff.each do |staff, submission_info| %>
+        <tr>
+          <td><%= staff.name %></td>
+          <% submission_info.each do |submission| %>
+            <td><%= submission[:graded] %> / <%= submission[:submitted] %><br><%= submission[:average] %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+<script type="text/javascript">
+  google.charts.load("current", {packages:["corechart"]});
+  google.charts.setOnLoadCallback(drawChart);
+  function drawChart() {
+    var data = google.visualization.arrayToDataTable(<%= @histogram.to_json.html_safe %>);
+
+    var options = {
+      title: '',
+      legend: { position: 'none' },
+      interpolateNulls: false,
+      chartArea:{left:50,top:50, width:"85%", height: "80%" }
+    };
+
+    var chart = new google.visualization.Histogram(document.getElementById('chart_div'));
+    chart.draw(data, options);
+  }
+
+</script>

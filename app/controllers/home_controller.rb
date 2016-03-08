@@ -17,13 +17,14 @@ class HomeController < ApplicationController
           submission = find_team_submission(assignment, student) if submission.nil?
           @ranking[student][:assignments] << submission
           @ranking[student][:total] += submission.final_grade unless submission.nil?
-          if submission && submission.grading_fields.size > 0
-            assignment.rubric_fields.each do |rubric_field|
-              rubric_field.rubric_field_items.each do |item|
-                @possible_scores[:assignment] += item.point unless item.extra_credit
-              end
-            end
-          end
+          @ranking[student][:total] += submission.sa_points unless submission.nil?
+          # if submission && submission.grading_fields.size > 0
+          #   assignment.rubric_fields.each do |rubric_field|
+          #     rubric_field.rubric_field_items.each do |item|
+          #       @possible_scores[:assignment] += item.point unless item.extra_credit
+          #     end
+          #   end
+          # end
         end
         @ranking[student][:total] += (@ranking[student][:labs].where(:complete=>true).count * 2)
         @ranking[student][:total] += @ranking[student][:quizzes].sum(:score)
@@ -44,27 +45,45 @@ class HomeController < ApplicationController
 
   def staff_progress
     if current_user.present? && current_user.is_ta?
-      @result = {}
-      ta_list = Ta.order(:name)
-      ta_list.each do |ta|
-        next if ta.email == "bsoe@ucsd.edu" || ta.email == "srk@ucsd.edu"
-        @result[ta] = []
-        students = []
-        ta.studios.each { |studio| students = students + studio.students }
+      @average_by_staff = {} # staff to array of hash (graded, submitted, average) 
+      @histogram  = {} # student to total score mapping
+      Ta.order(:name).each do |ta|
+        # next if ta.email == "bsoe@ucsd.edu" || ta.email == "srk@ucsd.edu"
+        next if ta.email == "srk@ucsd.edu"
+        @average_by_staff[ta] = []
         Assignment.order(:id).each do |assignment|
-          submission_count = {}
-          submission_count[:assignment] = assignment
-          submission_count[:total] = 0
-          submission_count[:graded] = 0
+          submission_info = {
+            :assignment=>assignment,
+            :submitted=>0,
+            :graded=>0,
+            :average=>0
+          }
           Submission.where(:assignment=>assignment).each do |submission|
-            if students.include?(submission.student)
-              submission_count[:total] += 1 
-              submission_count[:graded] += 1 unless submission.grading_fields.empty?
+            ta.studios.each do |studio|
+              if studio.students.include?(submission.student)
+                submission_info[:submitted] += 1
+                unless submission.grading_fields.empty?
+                  submission_info[:graded] += 1
+                  submission_info[:average] += submission.final_grade
+                end
+              end
             end
           end
-          @result[ta] << submission_count
+          submission_info[:average] = submission_info[:submitted] != 0 ? submission_info[:average] / submission_info[:submitted] : 0
+          @average_by_staff[ta] << submission_info
         end
       end
+
+      Student.all.each do |student|
+        next if student.pid == "A00000000"
+        @histogram[student.name] = 0
+        @histogram[student.name] += student.submissions.sum(:final_grade)
+        @histogram[student.name] += student.submissions.sum(:sa_points)
+        @histogram[student.name] += student.student_quizzes.sum(:score)
+        @histogram[student.name] += (student.student_labs.where(:complete=>true).count * 2)
+      end
+      @histogram = @histogram.to_a
+      @histogram.insert(0, ["Student Name", "Total Score"])
     else
       flash[:notice] = "Permission denied"
       redirect_to root_url and return
@@ -237,7 +256,7 @@ class HomeController < ApplicationController
   end
   def get_possible_points()
     possible_scores = {}
-    possible_scores[:assignment] = 14 # add hardcoded sum for assignment 1
+    possible_scores[:assignment] = 165 # hardcoded due to glitch
     possible_scores[:quiz] = Quiz.all.length > 1 ? (Quiz.all.length-1) * 10 : (Quiz.all.length) * 10
     possible_scores[:lab] = (Lab.all.length) * 2
     possible_scores
